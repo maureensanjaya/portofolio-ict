@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snoopy Beach Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #0A192F;
+        }
+
+        /* --- Latar Belakang & Alam --- */
+        .sky-bg {
+            background: linear-gradient(180deg, #0A192F 0%, #173A64 50%, #2A5A8A 100%);
+        }
+
+        .sun {
+            box-shadow: 0 0 40px 15px rgba(255, 255, 255, 0.4), 0 0 100px 30px rgba(255, 253, 231, 0.2);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 50px 20px rgba(255, 255, 255, 0.5), 0 0 120px 40px rgba(255, 253, 231, 0.3); }
+        }
+
+        /* --- Animasi Ombak Parallax --- */
+        .waves {
+            position: absolute;
+            bottom: 8vh;
+            width: 100%;
+            height: 15vh;
+            min-height: 100px;
+            max-height: 150px;
+        }
+
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        /* --- Pohon Kelapa --- */
+        .palm-tree {
+            transform-origin: bottom center;
+            animation: sway 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* --- UI Elements & Glass Cards --- */
+        .glass-card {
+            background: rgba(10, 25, 47, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Slide Transition Overlay */
+        .slide-overlay {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .slide-hidden {
+            transform: translateY(100%) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .slide-visible {
+            transform: translateY(0%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-blue-300 selection:text-navy-900 min-h-screen relative overflow-x-hidden">
+
+    <nav class="sticky top-0 z-40 w-full bg-[#0A192F]/80 backdrop-blur-lg border-b border-white/20 px-4 py-3 flex gap-4 shadow-lg overflow-x-auto whitespace-nowrap no-scrollbar items-center md:justify-center justify-between">
+        <div class="flex gap-4 items-center">
+            <a href="#bio" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Bio</a>
+            <a href="#hobi" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Hobi</a>
+            <a href="#keahlian" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Keahlian</a>
+            <a href="#pendidikan" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Pendidikan</a>
+            <a href="#prestasi" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Prestasi</a>
+            <a href="#karya" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Karya</a>
+            <a href="#kontak" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Kontak</a>
+        </div>
+        <!-- Tombol Admin dengan Ikon Gembok -->
+        <button id="nav-admin-btn" title="Login Admin" aria-label="Login Admin" class="w-8 h-8 rounded-full bg-blue-500/30 hover:bg-blue-500/60 border border-blue-400/50 text-blue-100 text-sm font-bold transition-all flex items-center justify-center shadow shrink-0">
+            🔒
+        </button>
+    </nav>
+
+    <div class="fixed inset-0 z-0 sky-bg pointer-events-none">
+        <!-- Matahari -->
+        <div class="absolute top-12 right-10 w-24 h-24 rounded-full bg-white sun"></div>
+
+        <!-- Pohon Kelapa -->
+        <div class="absolute bottom-[6vh] -left-8 w-40 h-56 palm-tree z-20">
+            <svg viewBox="0 0 200 300" fill="#051024" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <path d="M90,300 C90,200 110,100 130,50 C120,60 90,150 70,300 Z" />
+                <path d="M130,50 C90,20 30,50 10,80 C40,70 80,60 130,50 Z" />
+                <path d="M130,50 C100,-10 40,10 20,30 C60,20 100,40 130,50 Z" />
+                <path d="M130,50 C150,0 190,10 200,40 C170,20 140,30 130,50 Z" />
+                <path d="M130,50 C170,30 200,70 190,100 C170,70 140,60 130,50 Z" />
+                <path d="M130,50 C140,80 160,120 130,140 C140,100 130,70 130,50 Z" />
+                <path d="M130,50 C90,80 60,110 50,140 C70,110 100,80 130,50 Z" />
+            </svg>
+        </div>
+
+        <!-- Animasi Ombak Parallax -->
+        <svg class="waves z-10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255, 255, 255, 0.2)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 255, 255, 0.4)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(16, 42, 80, 0.8)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#0F2445" />
+            </g>
+        </svg>
+
+        <!-- Hamparan Pasir -->
+        <div class="absolute bottom-0 left-0 w-full h-[8vh] bg-gradient-to-b from-[#d4b895] to-[#c2a373] z-20 shadow-[inset_0_10px_20px_rgba(0,0,0,0.2)] border-t border-[#e8cead]/50"></div>
+    </div>
+
+    <main class="relative z-30 w-full max-w-md mx-auto pt-10 pb-24 px-5 flex flex-col items-center">
+        
+        <!-- Foto Profil -->
+        <div class="relative w-40 h-40 mb-5 float-anim group">
+            <div class="absolute inset-0 rounded-full bg-white/20 blur-md group-hover:blur-lg transition-all"></div>
+            <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-white/50 shadow-2xl bg-[#0A192F]">
+                <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_3zApDgplbJ_QFUfNS3OLASDM0B56jA38kFBOgl8VTESeUs_npJeBzFtb&s=10" 
+                    alt="Snoopy Surfing" 
+                    class="w-full h-full object-cover object-center scale-110"
+                />
+            </div>
+            <!-- Badge -->
+            <div id="badge-text" class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#0A192F] text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap uppercase tracking-wider border border-blue-100">
+                On the Beach 🌴
+            </div>
+        </div>
+
+        <!-- Nama & Gelar -->
+        <div class="text-center mb-8 mt-2">
+            <h1 id="profile-name" class="text-4xl font-extrabold tracking-tight text-white drop-shadow-md mb-1">
+                Maureen Everlyn Sanjaya
+            </h1>
+            <p id="profile-subtitle" class="text-blue-100 font-semibold tracking-wide text-sm drop-shadow uppercase">
+                SMA MUTIARA BANGSA 2
+            </p>
+        </div>
+
+        <!-- Kartu About -->
+        <section id="bio" class="glass-card w-full rounded-3xl p-6 mb-8 scroll-mt-24">
+            <h2 class="text-lg font-bold mb-2 flex items-center gap-2 text-white border-b border-white/20 pb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                Biografi
+            </h2>
+            <p id="bio-text" class="text-blue-50 text-sm leading-relaxed font-medium">
+                Pindah dari atap rumah anjing merah ke hangatnya pasir putih. 
+                Hidup ini terlalu singkat untuk tidak mengejar ombak besar. 
+                Tunggu saya di pantai bersama papan selancar andalan!
+            </p>
+        </section>
+
+        <!-- Quote Favorit -->
+        <div class="w-full mb-8 scroll-mt-24 flex justify-center">
+            <div class="relative px-6 py-4 border-l-4 border-blue-400 bg-white/5 rounded-r-xl w-full shadow-lg">
+                <p id="quote-text" class="text-blue-100 italic font-medium text-sm text-center">
+                    "Selancar bukan tentang menaklukkan ombak, tapi tentang menyatu dengannya."
+                </p>
+            </div>
+        </div>
+
+        <!-- Hobi & Minat -->
+        <div id="hobi" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-3 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Hobi Favorit
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1">
+                    <div id="hobby1-icon" class="p-3 rounded-full bg-white/5 text-3xl">🏄‍♂️</div>
+                    <span id="hobby1-text" class="text-xs font-bold text-blue-50">Selancar</span>
+                </div>
+                <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1">
+                    <div id="hobby2-icon" class="p-3 rounded-full bg-white/5 text-3xl">😴</div>
+                    <span id="hobby2-text" class="text-xs font-bold text-blue-50">Tidur Siang</span>
+                </div>
+                <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1">
+                    <div id="hobby3-icon" class="p-3 rounded-full bg-white/5 text-3xl">🛹</div>
+                    <span id="hobby3-text" class="text-xs font-bold text-blue-50">Skateboard</span>
+                </div>
+                <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1">
+                    <div id="hobby4-icon" class="p-3 rounded-full bg-white/5 text-3xl">🦴</div>
+                    <span id="hobby4-text" class="text-xs font-bold text-blue-50">Ngemil</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keahlian -->
+        <div id="keahlian" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Keahlian
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="glass-card px-4 py-2 rounded-full text-xs font-bold text-white border border-blue-200/30" id="skill1-text">Keseimbangan</span>
+                <span class="glass-card px-4 py-2 rounded-full text-xs font-bold text-white border border-blue-200/30" id="skill2-text">Gali Pasir</span>
+                <span class="glass-card px-4 py-2 rounded-full text-xs font-bold text-white border border-blue-200/30" id="skill3-text">Tangkap Frisbee</span>
+            </div>
+        </div>
+
+        <!-- Pendidikan -->
+        <div id="pendidikan" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Pendidikan
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div class="glass-card p-4 rounded-2xl flex items-center gap-4 hover:-translate-y-1 transition-all border border-white/10">
+                <div class="w-14 h-14 rounded-xl overflow-hidden bg-white/10 p-1 shrink-0 flex items-center justify-center border border-white/20">
+                    <img src="https://mutiarabangsa.sch.id/wp-content/uploads/2025/06/mutiarabangsa-logo.webp" alt="Logo Mutiara Bangsa" class="w-full h-full object-contain drop-shadow-md">
+                </div>
+                <div class="flex flex-col">
+                    <h3 id="edu-school-text" class="text-sm font-extrabold text-white">SMA Mutiara Bangsa 2</h3>
+                    <p id="edu-desc-text" class="text-xs font-semibold text-blue-200 mt-1">Siswa Teladan • 2024 - 2027</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prestasi -->
+        <div id="prestasi" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Prestasi
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div class="flex flex-col gap-3">
+                <div class="glass-card py-3 px-4 rounded-xl flex items-center gap-3 border border-white/10 shadow-sm">
+                    <span id="achv1-icon" class="text-xl">🏆</span>
+                    <span id="achv1-text" class="text-xs font-bold text-white">Juara 1 Selancar Tingkat RT</span>
+                </div>
+                <div class="glass-card py-3 px-4 rounded-xl flex items-center gap-3 border border-white/10 shadow-sm">
+                    <span id="achv2-icon" class="text-xl">🏅</span>
+                    <span id="achv2-text" class="text-xs font-bold text-white">Peserta Tidur Siang Terlama</span>
+                </div>
+                <div class="glass-card py-3 px-4 rounded-xl flex items-center gap-3 border border-white/10 shadow-sm">
+                    <span id="achv3-icon" class="text-xl">🌟</span>
+                    <span id="achv3-text" class="text-xs font-bold text-white">Master Papan Selancar 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="karya" class="w-full mb-8 scroll-mt-24">
+            <div class="flex flex-col items-center mb-4">
+                <h2 class="text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                    <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                    Karya & Projects
+                    <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                </h2>
+                <span class="text-[11px] text-blue-200/80 mt-1 font-medium bg-blue-500/20 px-3 py-1 rounded-full border border-blue-400/30">
+                    💡 Klik project untuk melihat slide detail karya!
+                </span>
+            </div>
+            
+            <!-- Container Dinamis Karya/Projects -->
+            <div id="projects-container" class="flex flex-col gap-3">
+                <!-- Project Cards Rendered Dynamically -->
+            </div>
+        </div>
+
+        <!-- Form Kontak -->
+        <div id="kontak" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                <span id="contact-title-text">Tertarik Bekerja Sama?</span>
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <form id="contact-form" class="glass-card p-5 rounded-2xl flex flex-col gap-3">
+                <input type="text" placeholder="Nama Anda" class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required>
+                <input type="email" placeholder="Email Anda" class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required>
+                <textarea rows="3" placeholder="Pesan..." class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required></textarea>
+                <button type="submit" class="w-full py-3 mt-2 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2">
+                    Kirim Pesan
+                </button>
+            </form>
+            <div id="contact-success" class="hidden mt-4 text-center text-sm text-green-100 font-semibold bg-green-500/30 border border-green-400/50 p-3 rounded-xl backdrop-blur-sm">
+                Pesan botolmu telah meluncur ke laut! 🌊
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w-full mt-12 pt-6 border-t border-white/20 flex flex-col items-center gap-4 z-40">
+            <p class="text-[11px] text-blue-200/70 uppercase tracking-widest font-semibold flex items-center gap-2">
+                &copy; 2026 Snoopy Beach Vibe.
+                <button id="open-login-btn" class="text-blue-300 hover:text-white font-bold underline transition-all ml-1">
+                    [ Access Backend Login ]
+                </button>
+            </p>
+        </footer>
+
+    </main>
+
+    <div id="project-detail-slide" class="fixed inset-0 z-[70] bg-[#0A192F] slide-overlay slide-hidden overflow-y-auto">
+        <div class="relative min-h-screen w-full max-w-2xl mx-auto p-6 pt-8 pb-24 flex flex-col">
+            
+            <!-- Top Nav Slide -->
+            <div class="flex items-center justify-between border-b border-white/20 pb-4 mb-6">
+                <button id="close-slide-btn" class="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-xl transition-all border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali ke Beranda
+                </button>
+                <span id="slide-badge" class="bg-blue-500/80 text-white text-[10px] uppercase font-extrabold px-3 py-1 rounded-full border border-white/20">
+                    Badge
+                </span>
+            </div>
+
+            <!-- Header Slide Project -->
+            <div class="flex items-start gap-4 mb-6">
+                <div id="slide-icon" class="p-4 bg-white/10 rounded-2xl text-4xl border border-white/20 shrink-0">
+                    🚀
+                </div>
+                <div>
+                    <h1 id="slide-title" class="text-2xl font-extrabold text-white mb-1">
+                        Judul Project
+                    </h1>
+                    <p id="slide-desc" class="text-sm text-blue-100/90 leading-relaxed font-medium">
+                        Deskripsi project...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Section Karya-Karya dalam Project ini -->
+            <div class="mt-4 flex-1">
+                <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <span>🎨</span> Daftar Karya / Item Detail
+                    </h2>
+                    <span id="subworks-count" class="text-xs bg-white/10 text-blue-200 px-2.5 py-1 rounded-lg">
+                        0 Karya
+                    </span>
+                </div>
+
+                <!-- Grid Sub-Karya/Items -->
+                <div id="slide-subworks-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Sub-works cards rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Footer Close Slide Button -->
+            <div class="mt-12 text-center">
+                <button id="close-slide-bottom-btn" class="w-full py-3 bg-blue-500/30 hover:bg-blue-500/50 border border-blue-400/40 rounded-xl text-white font-bold text-sm transition-all">
+                    ← Tutup Slide Project
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div id="login-modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center bg-black/70 backdrop-blur-md px-4">
+        <div class="bg-[#0A192F] border border-white/20 p-6 rounded-2xl w-full max-w-sm shadow-2xl transform transition-all">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span>🔒</span> Admin Login
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-blue-200 mb-1">Username</label>
+                    <input type="text" id="admin-user" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-400" placeholder="Username">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-blue-200 mb-1">Password</label>
+                    <input type="password" id="admin-pass" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-400" placeholder="••••••••">
+                </div>
+                <div id="login-error" class="text-red-400 text-xs hidden font-semibold">Username atau password salah!</div>
+                <div class="flex gap-3 mt-6">
+                    <button id="close-login-btn" class="flex-1 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors text-xs">Batal</button>
+                    <button id="submit-login-btn" class="flex-1 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-semibold transition-colors text-xs">Masuk Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (FULL CMS) -->
+    <div id="admin-dashboard" class="fixed inset-0 z-[80] hidden bg-[#0A192F]/95 backdrop-blur-xl overflow-y-auto">
+        <div class="w-full max-w-2xl mx-auto p-6 pt-10 pb-24">
+            <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Dashboard CMS Backend</h2>
+                    <p class="text-xs text-blue-200 mt-1">Kelola seluruh biodata, hobi, dan karya-karya proyek secara realtime.</p>
+                </div>
+                <button id="close-admin-btn" class="text-white/50 hover:text-white bg-white/10 p-2 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Edit Nama & Subtitle -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <label class="block text-sm font-bold text-blue-100 mb-2">Edit Nama & Gelar</label>
+                    <input type="text" id="edit-name" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400 mb-3" placeholder="Nama Anda">
+                    <input type="text" id="edit-subtitle" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Gelar / Profesi">
+                </div>
+
+                <!-- Edit Bio -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <label class="block text-sm font-bold text-blue-100 mb-2">Edit Biography</label>
+                    <textarea id="edit-bio" rows="3" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400"></textarea>
+                </div>
+
+                <!-- Edit Status & Quote -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-blue-200 mb-1">Edit Status (Badge foto)</label>
+                        <input type="text" id="edit-badge" class="w-full bg-black/30 border border-white/20 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-blue-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-blue-200 mb-1">Edit Quote Favorit</label>
+                        <textarea id="edit-quote" rows="2" class="w-full bg-black/30 border border-white/20 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-blue-400"></textarea>
+                    </div>
+                </div>
+
+                <!-- Edit Hobi -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Hobi Favorit (4 Hobi)</label>
+                    <div id="admin-hobbies-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Hobby inputs rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Edit Keahlian -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Keahlian (3 Keahlian)</label>
+                    <div id="admin-skills-container" class="grid grid-cols-3 gap-2">
+                        <!-- Skill inputs rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Edit Pendidikan -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Pendidikan</label>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Nama Sekolah / Lembaga</label>
+                            <input type="text" id="edit-edu-school" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Nama Sekolah / Kampus">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Keterangan / Status / Tahun</label>
+                            <input type="text" id="edit-edu-desc" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Misal: Siswa Teladan • 2024 - 2027">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Prestasi -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Prestasi (3 Prestasi)</label>
+                    <div id="admin-achievements-container" class="space-y-2">
+                        <!-- Achievement inputs rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Edit Kontak & Email Penerima -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Kontak & Email Penerima Pesan</label>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Judul Form Kontak</label>
+                            <input type="text" id="edit-contact-title" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Tertarik Bekerja Sama?">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Email Penerima Pesan</label>
+                            <input type="email" id="edit-contact-email" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="email@tujuan.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Projects & Karya Sub-items -->
+                <div class="bg-white/5 p-5 rounded-xl border border-white/10 space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div>
+                            <h3 class="text-base font-bold text-blue-100">Kelola Projects & Sub-Karya</h3>
+                            <p class="text-xs text-blue-200/70">Tambahkan project, ubah judul/deskripsi, dan kelola item karya di dalam slide project.</p>
+                        </div>
+                        <button type="button" id="add-project-btn" class="px-3.5 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 shadow shrink-0">
+                            <span>+</span> Tambah Project
+                        </button>
+                    </div>
+                    
+                    <!-- Container List Edit Project & Sub-karya -->
+                    <div id="admin-projects-list" class="space-y-4">
+                        <!-- Project item forms rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button id="save-data-btn" class="w-full py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-base shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Simpan Semua Perubahan
+                </button>
+                <div id="save-status" class="text-green-400 text-sm text-center font-semibold hidden">Perubahan berhasil disimpan! ✅</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Konfigurasi Firebase
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-snoopy-app';
+        let firebaseConfig = null;
+        try { 
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                firebaseConfig = JSON.parse(__firebase_config); 
+            }
+        } catch (e) { console.error("Error parsing firebase config", e); }
+
+        // Initial Default Data
+        let currentData = {
+            name: "Maureen Everlyn Sanjaya",
+            subtitle: "SMA MUTIARA BANGSA 2",
+            badgeText: "On the Beach 🌴",
+            bio: "Siswa SMA Mutiara Bangsa 2. Hidup ini terlalu singkat untuk tidak mengejar impian dan mengeksplorasi hal-hal baru. Salam kenal dari pantai!",
+            quote: "\"Selancar bukan tentang menaklukkan ombak, tapi tentang menyatu dengannya.\"",
+            hobbies: [
+                { text: "Selancar", icon: "🏄‍♂️" },
+                { text: "Mendengar Musik", icon: "🎧" },
+                { text: "Skateboard", icon: "🛹" },
+                { text: "Ngemil", icon: "🦴" }
+            ],
+            skills: ["Kreativitas", "Public Speaking", "Kerja Sama Tim"],
+            education: { school: "SMA Mutiara Bangsa 2", desc: "Siswa Teladan • 2024 - 2027" },
+            achievements: [
+                { text: "Juara 1 Lomba Kreativitas", icon: "🏆" },
+                { text: "Siswa Berprestasi SMA MB 2", icon: "🏅" },
+                { text: "Master Papan Selancar 2026", icon: "🌟" }
+            ],
+            projects: [
+                {
+                    id: "proj-1",
+                    title: "Koleksi Desain Papan Selancar 🏄‍♂️",
+                    desc: "Berbagai karya seni visual dan stiker custom yang dibuat khusus untuk papan selancar.",
+                    badge: "Active",
+                    icon: "🎨",
+                    items: [
+                        { title: "Papan Ocean Wave", desc: "Motif gradasi biru air laut dengan ornamen ombak emas.", image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=500&q=80" },
+                        { title: "Sunset Vibe Board", desc: "Warna siluet senja dengan gambar pohon kelapa di tengah.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80" }
+                    ]
+                },
+                {
+                    id: "proj-2",
+                    title: "Project Database Firebase 🚀",
+                    desc: "Aplikasi interaktif yang terhubung ke cloud database realtime.",
+                    badge: "Upcoming",
+                    icon: "💻",
+                    items: [
+                        { title: "Realtime Data Sync", desc: "Sinkronisasi konten secara langsung tanpa refresh halaman.", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80" },
+                        { title: "CMS Dashboard Admin", desc: "Sistem pengelola konten karya interaktif dan aman.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" }
+                    ]
+                }
+            ],
+            contact: { title: "Pesan untuk Maureen...", email: "maureen@gmail.com" }
+        };
+
+        // Fungsi membaca data tersimpan dari browser dengan prioritas utama
+        function loadLocalStoredData() {
+            try {
+                const saved = localStorage.getItem('snoopyProfileData') || sessionStorage.getItem('snoopyProfileData');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                        currentData = { ...currentData, ...parsed };
+                    }
+                }
+            } catch(e) {
+                console.warn("Gagal membaca storage lokal:", e);
+            }
+        }
+
+        // Jalankan pemuatan lokal segera saat script dimuat
+        loadLocalStoredData();
+
+        // DOM Elements
+        const profileName = document.getElementById('profile-name');
+        const profileSubtitle = document.getElementById('profile-subtitle');
+        const badgeText = document.getElementById('badge-text');
+        const bioText = document.getElementById('bio-text');
+        const quoteText = document.getElementById('quote-text');
+        const projectsContainer = document.getElementById('projects-container');
+
+        // Slide Elements
+        const projectSlide = document.getElementById('project-detail-slide');
+        const slideTitle = document.getElementById('slide-title');
+        const slideDesc = document.getElementById('slide-desc');
+        const slideBadge = document.getElementById('slide-badge');
+        const slideIcon = document.getElementById('slide-icon');
+        const slideGrid = document.getElementById('slide-subworks-grid');
+        const subworksCount = document.getElementById('subworks-count');
+        const closeSlideBtn = document.getElementById('close-slide-btn');
+        const closeSlideBottomBtn = document.getElementById('close-slide-bottom-btn');
+
+        // Admin Elements
+        const navAdminBtn = document.getElementById('nav-admin-btn');
+        const openLoginBtn = document.getElementById('open-login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeLoginBtn = document.getElementById('close-login-btn');
+        const submitLoginBtn = document.getElementById('submit-login-btn');
+        const adminUser = document.getElementById('admin-user');
+        const adminPass = document.getElementById('admin-pass');
+        const loginError = document.getElementById('login-error');
+
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const closeAdminBtn = document.getElementById('close-admin-btn');
+        const saveDataBtn = document.getElementById('save-data-btn');
+        const saveStatus = document.getElementById('save-status');
+
+        const editName = document.getElementById('edit-name');
+        const editSubtitle = document.getElementById('edit-subtitle');
+        const editBadge = document.getElementById('edit-badge');
+        const editBio = document.getElementById('edit-bio');
+        const editQuote = document.getElementById('edit-quote');
+        const adminProjectsList = document.getElementById('admin-projects-list');
+
+        let app, auth, db, docRef;
+
+        // Firebase Init
+        async function initAuth() {
+            loadLocalStoredData();
+            updatePublicUI();
+
+            if (!firebaseConfig) return;
+
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                docRef = doc(db, 'artifacts', appId, 'public', 'data', 'cms', 'pageContent');
+
+                const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (initialToken) {
+                    try { await signInWithCustomToken(auth, initialToken); }
+                    catch (e) { await signInAnonymously(auth); }
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                if (!auth.currentUser) return;
+
+                // Listen perubahan Realtime dari Cloud Database dengan Proteksi Data Lokal
+                onSnapshot(docRef, (snap) => {
+                    const localSaved = localStorage.getItem('snoopyProfileData');
+                    let localObj = null;
+                    if (localSaved) {
+                        try { localObj = JSON.parse(localSaved); } catch(e){}
+                    }
+
+                    if (snap.exists()) {
+                        const cloudData = snap.data();
+                        // Prioritaskan data lokal yang pernah diedit agar tidak terreset oleh cloud lama
+                        currentData = { ...currentData, ...cloudData, ...(localObj || {}) };
+                        try {
+                            localStorage.setItem('snoopyProfileData', JSON.stringify(currentData));
+                            sessionStorage.setItem('snoopyProfileData', JSON.stringify(currentData));
+                        } catch(e){}
+                        updatePublicUI();
+                        if (!adminDashboard.classList.contains('hidden')) {
+                            updateAdminUI();
+                        }
+                    } else {
+                        // Jika cloud masih kosong, amankan dengan data lokal yang tersimpan
+                        if (localObj) {
+                            currentData = { ...currentData, ...localObj };
+                        }
+                        setDoc(docRef, currentData).catch(err => console.error(err));
+                    }
+                }, (err) => console.error(err));
+            } catch(e) { console.error(e); }
+        }
+
+        function updatePublicUI() {
+            profileName.innerText = currentData.name || "Snoopy";
+            profileSubtitle.innerText = currentData.subtitle || "MASTER SURFER";
+            badgeText.innerText = currentData.badgeText || "On the Beach 🌴";
+            bioText.innerText = currentData.bio || "";
+            quoteText.innerText = currentData.quote || "";
+
+            // Render Hobi
+            if (currentData.hobbies && currentData.hobbies.length >= 4) {
+                currentData.hobbies.forEach((h, i) => {
+                    const iconEl = document.getElementById(`hobby${i+1}-icon`);
+                    const textEl = document.getElementById(`hobby${i+1}-text`);
+                    if (iconEl) iconEl.innerText = h.icon || '🏄‍♂️';
+                    if (textEl) textEl.innerText = h.text || '';
+                });
+            }
+
+            // Render Keahlian
+            if (currentData.skills && currentData.skills.length >= 3) {
+                currentData.skills.forEach((s, i) => {
+                    const textEl = document.getElementById(`skill${i+1}-text`);
+                    if (textEl) textEl.innerText = s || '';
+                });
+            }
+
+            // Render Pendidikan
+            if (currentData.education) {
+                const schoolEl = document.getElementById('edu-school-text');
+                const descEl = document.getElementById('edu-desc-text');
+                if (schoolEl) schoolEl.innerText = currentData.education.school || '';
+                if (descEl) descEl.innerText = currentData.education.desc || '';
+            }
+
+            // Render Prestasi
+            if (currentData.achievements && currentData.achievements.length >= 3) {
+                currentData.achievements.forEach((a, i) => {
+                    const iconEl = document.getElementById(`achv${i+1}-icon`);
+                    const textEl = document.getElementById(`achv${i+1}-text`);
+                    if (iconEl) iconEl.innerText = a.icon || '🏆';
+                    if (textEl) textEl.innerText = a.text || '';
+                });
+            }
+
+            // Render Judul Kontak
+            if (currentData.contact) {
+                const contactTitleEl = document.getElementById('contact-title-text');
+                if (contactTitleEl) contactTitleEl.innerText = currentData.contact.title || 'Tertarik Bekerja Sama?';
+            }
+
+            // Render Projects
+            if (projectsContainer) {
+                projectsContainer.innerHTML = '';
+                const projs = currentData.projects && currentData.projects.length > 0 ? currentData.projects : [];
+
+                if (projs.length === 0) {
+                    projectsContainer.innerHTML = `<p class="text-xs text-blue-200/60 text-center py-4 italic">Belum ada project. Tambahkan melalui backend admin.</p>`;
+                    return;
+                }
+
+                projs.forEach((proj, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "glass-card p-5 rounded-2xl border border-white/15 hover:-translate-y-1 hover:border-blue-300/60 transition-all shadow-md cursor-pointer relative group overflow-hidden";
+                    
+                    const badgeColor = (proj.badge === 'Featured' || proj.badge === 'Upcoming') ? 'bg-amber-500/80' : 'bg-blue-500/80';
+                    const itemCount = proj.items ? proj.items.length : 0;
+
+                    card.innerHTML = `
+                        <div class="absolute top-0 right-0 ${badgeColor} backdrop-blur-md text-white text-[9px] uppercase tracking-wider font-extrabold px-3 py-1.5 rounded-bl-xl border-b border-l border-white/20 shadow">
+                            ${proj.badge || 'Project'}
+                        </div>
+                        <div class="flex items-start gap-3 mt-1">
+                            <div class="p-3 bg-white/10 rounded-xl shrink-0 text-2xl group-hover:scale-110 transition-transform">
+                                ${proj.icon || '🚀'}
+                            </div>
+                            <div class="pr-12">
+                                <h3 class="text-sm font-bold text-white group-hover:text-blue-200 transition-colors leading-snug">
+                                    ${proj.title || 'Project Without Title'}
+                                </h3>
+                                <p class="text-xs text-blue-100/80 mt-1 line-clamp-2 leading-relaxed">
+                                    ${proj.desc || 'Klik untuk membuka slide detail...'}
+                                </p>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <span class="text-[10px] bg-white/10 text-blue-200 px-2.5 py-1 rounded-full font-bold border border-white/10 flex items-center gap-1">
+                                        🖼️ ${itemCount} Karya
+                                    </span>
+                                    <span class="text-[10px] text-blue-300 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                                        Buka Slide →
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Klik Project -> Pindah ke Slide Baru!
+                    card.addEventListener('click', () => {
+                        openProjectSlide(proj);
+                    });
+
+                    projectsContainer.appendChild(card);
+                });
+            }
+        }
+
+        function openProjectSlide(proj) {
+            slideTitle.innerText = proj.title || "Detail Project";
+            slideDesc.innerText = proj.desc || "";
+            slideBadge.innerText = proj.badge || "Project";
+            slideIcon.innerText = proj.icon || "🚀";
+
+            const items = proj.items || [];
+            subworksCount.innerText = `${items.length} Karya`;
+
+            slideGrid.innerHTML = '';
+            if (items.length === 0) {
+                slideGrid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-blue-200/60 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-2xl mb-2">🎨</p>
+                        <p class="text-xs font-semibold">Belum ada karya dalam project ini.</p>
+                        <p class="text-[11px] mt-1 text-blue-300/60">Anda bisa menambahkan item karya melalui Backend Admin!</p>
+                    </div>
+                `;
+            } else {
+                items.forEach((item, i) => {
+                    const itemCard = document.createElement('div');
+                    itemCard.className = "glass-card p-4 rounded-2xl border border-white/15 flex flex-col justify-between hover:border-blue-300/50 transition-all";
+                    
+                    const imgUrl = item.image || "https://placehold.co/400x250/0A192F/white?text=Karya+Snoopy";
+
+                    itemCard.innerHTML = `
+                        <div class="w-full h-36 rounded-xl overflow-hidden bg-black/40 mb-3 border border-white/10 relative group">
+                            <img src="${imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x250/0A192F/white?text=Karya+Snoopy'">
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white mb-1">${item.title || 'Judul Karya'}</h4>
+                            <p class="text-xs text-blue-100/80 leading-relaxed font-medium">${item.desc || ''}</p>
+                        </div>
+                    `;
+                    slideGrid.appendChild(itemCard);
+                });
+            }
+
+            // Show Slide
+            projectSlide.classList.remove('slide-hidden');
+            projectSlide.classList.add('slide-visible');
+            document.body.style.overflow = 'hidden'; // Stop scrolling background
+        }
+
+        function closeProjectSlide() {
+            projectSlide.classList.remove('slide-visible');
+            projectSlide.classList.add('slide-hidden');
+            document.body.style.overflow = '';
+        }
+
+        closeSlideBtn.addEventListener('click', closeProjectSlide);
+        closeSlideBottomBtn.addEventListener('click', closeProjectSlide);
+
+        function openAdminModal() {
+            loginModal.classList.remove('hidden');
+            loginError.classList.add('hidden');
+        }
+
+        function closeAdminModal() {
+            loginModal.classList.add('hidden');
+        }
+
+        openLoginBtn.addEventListener('click', openAdminModal);
+        navAdminBtn.addEventListener('click', openAdminModal);
+        closeLoginBtn.addEventListener('click', closeAdminModal);
+
+        submitLoginBtn.addEventListener('click', () => {
+            const u = adminUser.value.trim();
+            const p = adminPass.value.trim();
+
+            if (u === 'maureen' && p === 'maureen07') {
+                closeAdminModal();
+                updateAdminUI();
+                adminDashboard.classList.remove('hidden');
+            } else {
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        closeAdminBtn.addEventListener('click', () => {
+            adminDashboard.classList.add('hidden');
+        });
+
+        function updateAdminUI() {
+            editName.value = currentData.name || "";
+            editSubtitle.value = currentData.subtitle || "";
+            editBadge.value = currentData.badgeText || "";
+            editBio.value = currentData.bio || "";
+            editQuote.value = currentData.quote || "";
+
+            // Form Pendidikan
+            if (currentData.education) {
+                const schoolInput = document.getElementById('edit-edu-school');
+                const descInput = document.getElementById('edit-edu-desc');
+                if (schoolInput) schoolInput.value = currentData.education.school || "";
+                if (descInput) descInput.value = currentData.education.desc || "";
+            }
+
+            // Form Hobi (4 Hobi)
+            const hobbiesContainer = document.getElementById('admin-hobbies-container');
+            if (hobbiesContainer) {
+                hobbiesContainer.innerHTML = '';
+                const hList = currentData.hobbies || [
+                    { text: "Selancar", icon: "🏄‍♂️" },
+                    { text: "Tidur Siang", icon: "😴" },
+                    { text: "Skateboard", icon: "🛹" },
+                    { text: "Ngemil", icon: "🦴" }
+                ];
+                hList.forEach((h, i) => {
+                    const div = document.createElement('div');
+                    div.className = "flex gap-2 items-center bg-black/30 p-2 rounded-lg border border-white/10";
+                    div.innerHTML = `
+                        <input type="text" value="${h.icon || '🏄‍♂️'}" class="admin-hobby-icon w-10 bg-white/10 border border-white/20 rounded px-1.5 py-1 text-center text-white text-xs outline-none" title="Emoji Hobi">
+                        <input type="text" value="${h.text || ''}" class="admin-hobby-text w-full bg-white/10 border border-white/20 rounded px-2.5 py-1 text-white text-xs outline-none" placeholder="Hobi ${i+1}">
+                    `;
+                    hobbiesContainer.appendChild(div);
+                });
+            }
+
+            // Form Keahlian (3 Keahlian)
+            const skillsContainer = document.getElementById('admin-skills-container');
+            if (skillsContainer) {
+                skillsContainer.innerHTML = '';
+                const sList = currentData.skills || ["Keseimbangan", "Gali Pasir", "Tangkap Frisbee"];
+                sList.forEach((s, i) => {
+                    const input = document.createElement('input');
+                    input.type = "text";
+                    input.value = s || "";
+                    input.placeholder = `Keahlian ${i+1}`;
+                    input.className = "admin-skill-input w-full bg-black/30 border border-white/20 rounded-lg p-2 text-white text-xs outline-none focus:border-blue-400";
+                    skillsContainer.appendChild(input);
+                });
+            }
+
+            // Form Prestasi (3 Prestasi)
+            const achievementsContainer = document.getElementById('admin-achievements-container');
+            if (achievementsContainer) {
+                achievementsContainer.innerHTML = '';
+                const aList = currentData.achievements || [
+                    { text: "Juara 1 Selancar Tingkat RT", icon: "🏆" },
+                    { text: "Peserta Tidur Siang Terlama", icon: "🏅" },
+                    { text: "Master Papan Selancar 2026", icon: "🌟" }
+                ];
+                aList.forEach((a, i) => {
+                    const div = document.createElement('div');
+                    div.className = "flex gap-2 items-center bg-black/30 p-2 rounded-lg border border-white/10";
+                    div.innerHTML = `
+                        <input type="text" value="${a.icon || '🏆'}" class="admin-achv-icon w-10 bg-white/10 border border-white/20 rounded px-1.5 py-1 text-center text-white text-xs outline-none" title="Emoji Prestasi">
+                        <input type="text" value="${a.text || ''}" class="admin-achv-text w-full bg-white/10 border border-white/20 rounded px-2.5 py-1 text-white text-xs outline-none" placeholder="Prestasi ${i+1}">
+                    `;
+                    achievementsContainer.appendChild(div);
+                });
+            }
+
+            // Form Kontak & Email Penerima
+            const editContactTitle = document.getElementById('edit-contact-title');
+            const editContactEmail = document.getElementById('edit-contact-email');
+            if (editContactTitle) editContactTitle.value = currentData.contact?.title || "Tertarik Bekerja Sama?";
+            if (editContactEmail) editContactEmail.value = currentData.contact?.email || "snoopy@pantai.com";
+
+            renderAdminProjectsList();
+        }
+
+        function renderAdminProjectsList() {
+            adminProjectsList.innerHTML = '';
+            
+            if (!currentData.projects) currentData.projects = [];
+
+            if (currentData.projects.length === 0) {
+                adminProjectsList.innerHTML = `<p class="text-xs text-blue-200/60 italic text-center py-2">Belum ada project.</p>`;
+                return;
+            }
+
+            currentData.projects.forEach((proj, pIdx) => {
+                const projCard = document.createElement('div');
+                projCard.className = "bg-black/40 p-4 rounded-xl border border-white/15 space-y-3 relative";
+                
+                const itemsCount = proj.items ? proj.items.length : 0;
+
+                projCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                        <span class="text-xs font-extrabold text-blue-300">PROJECT #${pIdx + 1}</span>
+                        <button type="button" data-pidx="${pIdx}" class="btn-del-proj text-xs text-red-400 hover:text-red-300 bg-red-500/10 px-2.5 py-1 rounded-lg font-semibold border border-red-500/30">
+                            🗑️ Hapus Project
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" value="${proj.icon || '🚀'}" placeholder="Emoji" class="proj-icon w-full bg-white/10 border border-white/20 rounded-lg px-2 text-center text-white text-xs py-2 outline-none">
+                        <input type="text" value="${proj.title || ''}" placeholder="Judul Project" class="proj-title col-span-2 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">
+                    </div>
+
+                    <input type="text" value="${proj.badge || 'Active'}" placeholder="Badge (Active / Featured)" class="proj-badge w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">
+
+                    <textarea rows="2" placeholder="Deskripsi Singkat Project" class="proj-desc w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">${proj.desc || ''}</textarea>
+
+                    <!-- Sub-items Karya Section -->
+                    <div class="mt-4 pt-3 border-t border-white/10">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-blue-200">🖼️ Item Karya (${itemsCount})</span>
+                            <button type="button" data-pidx="${pIdx}" class="btn-add-item px-2.5 py-1 bg-emerald-500/30 hover:bg-emerald-500/50 text-emerald-200 border border-emerald-400/40 rounded-lg text-[11px] font-bold">
+                                + Tambah Karya
+                            </button>
+                        </div>
+                        <div class="admin-items-container space-y-2.5" data-pidx="${pIdx}">
+                            <!-- Nested sub-items rendered below -->
+                        </div>
+                    </div>
+                `;
+
+                adminProjectsList.appendChild(projCard);
+
+                // Render Sub-Items
+                const itemsContainer = projCard.querySelector('.admin-items-container');
+                if (proj.items && proj.items.length > 0) {
+                    proj.items.forEach((item, iIdx) => {
+                        const itemBox = document.createElement('div');
+                        itemBox.className = "bg-white/5 p-3 rounded-lg border border-white/10 space-y-2";
+                        itemBox.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] text-blue-300/80 font-bold">Karya #${iIdx + 1}</span>
+                                <button type="button" data-pidx="${pIdx}" data-iidx="${iIdx}" class="btn-del-item text-[10px] text-red-400 hover:text-red-300 font-bold">
+                                    [Hapus]
+                                </button>
+                            </div>
+                            <input type="text" value="${item.title || ''}" placeholder="Judul Karya" class="item-title w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">
+                            <input type="text" value="${item.image || ''}" placeholder="URL Gambar / Foto Karya" class="item-image w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">
+                            <textarea rows="1" placeholder="Deskripsi Karya" class="item-desc w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">${item.desc || ''}</textarea>
+                        `;
+                        itemsContainer.appendChild(itemBox);
+                    });
+                } else {
+                    itemsContainer.innerHTML = `<p class="text-[11px] text-white/40 italic">Belum ada karya di dalam project ini.</p>`;
+                }
+            });
+
+            // Event Listeners for Dynamic Admin Buttons
+            document.querySelectorAll('.btn-del-proj').forEach(btn => {
+                btn.onclick = (e) => {
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    currentData.projects.splice(pidx, 1);
+                    renderAdminProjectsList();
+                };
+            });
+
+            document.querySelectorAll('.btn-add-item').forEach(btn => {
+                btn.onclick = (e) => {
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    if (!currentData.projects[pidx].items) currentData.projects[pidx].items = [];
+                    currentData.projects[pidx].items.push({
+                        title: "Karya Baru",
+                        desc: "Deskripsi singkat tentang karya ini.",
+                        image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=500&q=80"
+                    });
+                    renderAdminProjectsList();
+                };
+            });
+
+            document.querySelectorAll('.btn-del-item').forEach(btn => {
+                btn.onclick = (e) => {
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    const iidx = parseInt(e.currentTarget.getAttribute('data-iidx'));
+                    currentData.projects[pidx].items.splice(iidx, 1);
+                    renderAdminProjectsList();
+                };
+            });
+        }
+
+        // Add New Project Button
+        document.getElementById('add-project-btn')?.addEventListener('click', () => {
+            if (!currentData.projects) currentData.projects = [];
+            currentData.projects.push({
+                id: "proj-" + Date.now(),
+                title: "Project Baru",
+                desc: "Deskripsi project baru...",
+                badge: "Active",
+                icon: "💡",
+                items: []
+            });
+            renderAdminProjectsList();
+        });
+
+        saveDataBtn.addEventListener('click', async () => {
+            // Re-collect data from CMS inputs
+            const projCards = adminProjectsList.children;
+            const updatedProjects = [];
+
+            Array.from(projCards).forEach((card, pIdx) => {
+                const icon = card.querySelector('.proj-icon')?.value || '🚀';
+                const title = card.querySelector('.proj-title')?.value || 'Project';
+                const badge = card.querySelector('.proj-badge')?.value || 'Active';
+                const desc = card.querySelector('.proj-desc')?.value || '';
+
+                const itemsContainer = card.querySelector('.admin-items-container');
+                const itemBoxes = itemsContainer ? itemsContainer.children : [];
+                const items = [];
+
+                Array.from(itemBoxes).forEach(itemBox => {
+                    const iTitle = itemBox.querySelector('.item-title')?.value;
+                    const iImage = itemBox.querySelector('.item-image')?.value;
+                    const iDesc = itemBox.querySelector('.item-desc')?.value;
+
+                    if (iTitle !== undefined) {
+                        items.push({
+                            title: iTitle,
+                            image: iImage,
+                            desc: iDesc
+                        });
+                    }
+                });
+
+                updatedProjects.push({
+                    id: currentData.projects[pIdx]?.id || ("proj-" + pIdx),
+                    icon,
+                    title,
+                    badge,
+                    desc,
+                    items
+                });
+            });
+
+            // Collect Hobbies
+            const hobbyIcons = document.querySelectorAll('.admin-hobby-icon');
+            const hobbyTexts = document.querySelectorAll('.admin-hobby-text');
+            const newHobbies = [];
+            hobbyIcons.forEach((iconInput, idx) => {
+                newHobbies.push({
+                    icon: iconInput.value || '🏄‍♂️',
+                    text: hobbyTexts[idx]?.value || ''
+                });
+            });
+
+            // Collect Skills
+            const skillInputs = document.querySelectorAll('.admin-skill-input');
+            const newSkills = [];
+            skillInputs.forEach(input => {
+                newSkills.push(input.value || '');
+            });
+
+            // Collect Education
+            const newEdu = {
+                school: document.getElementById('edit-edu-school')?.value || '',
+                desc: document.getElementById('edit-edu-desc')?.value || ''
+            };
+
+            // Collect Achievements
+            const achvIcons = document.querySelectorAll('.admin-achv-icon');
+            const achvTexts = document.querySelectorAll('.admin-achv-text');
+            const newAchievements = [];
+            achvIcons.forEach((iconInput, idx) => {
+                newAchievements.push({
+                    icon: iconInput.value || '🏆',
+                    text: achvTexts[idx]?.value || ''
+                });
+            });
+
+            // Collect Contact Title & Receiver Email
+            const newContact = {
+                title: document.getElementById('edit-contact-title')?.value || 'Tertarik Bekerja Sama?',
+                email: document.getElementById('edit-contact-email')?.value || 'snoopy@pantai.com'
+            };
+
+            currentData.name = editName.value;
+            currentData.subtitle = editSubtitle.value;
+            currentData.badgeText = editBadge.value;
+            currentData.bio = editBio.value;
+            currentData.quote = editQuote.value;
+            currentData.hobbies = newHobbies;
+            currentData.skills = newSkills;
+            currentData.education = newEdu;
+            currentData.achievements = newAchievements;
+            currentData.contact = newContact;
+            currentData.projects = updatedProjects;
+
+            saveDataBtn.innerText = "Menyimpan...";
+
+            try {
+                // Simpan ganda ke LocalStorage & SessionStorage
+                const stringified = JSON.stringify(currentData);
+                try {
+                    localStorage.setItem('snoopyProfileData', stringified);
+                    sessionStorage.setItem('snoopyProfileData', stringified);
+                } catch(e){}
+
+                updatePublicUI();
+
+                if (auth && auth.currentUser && docRef) {
+                    await setDoc(docRef, currentData);
+                    saveStatus.innerText = "Tersimpan Permanen di Cloud & Browser! ☁️✅";
+                } else {
+                    saveStatus.innerText = "Tersimpan di Browser Anda! ✅";
+                }
+
+                saveStatus.classList.remove('hidden');
+                setTimeout(() => saveStatus.classList.add('hidden'), 3500);
+            } catch(e) {
+                console.error(e);
+                saveStatus.innerText = "Tersimpan di Browser Anda! ✅";
+                saveStatus.classList.remove('hidden');
+                setTimeout(() => saveStatus.classList.add('hidden'), 3500);
+            } finally {
+                saveDataBtn.innerText = "Simpan Semua Perubahan";
+            }
+        });
+
+        // Contact Form
+        document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const targetEmail = currentData.contact?.email || "snoopy@pantai.com";
+            const succ = document.getElementById('contact-success');
+            if (succ) {
+                succ.innerText = `Pesan botolmu telah meluncur ke ${targetEmail}! 🌊`;
+                succ.classList.remove('hidden');
+            }
+            e.target.reset();
+            setTimeout(() => succ?.classList.add('hidden'), 4000);
+        });
+
+        // Init
+        initAuth();
+    </script>
+</body>
+</html>
