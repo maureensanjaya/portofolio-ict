@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maureen Everlyn Sanjaya - Portofolio Pantai Snoopy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #0A192F;
+        }
+
+        /* --- Latar Belakang & Alam --- */
+        .sky-bg {
+            background: linear-gradient(180deg, #0A192F 0%, #173A64 50%, #2A5A8A 100%);
+        }
+
+        .sun {
+            box-shadow: 0 0 40px 15px rgba(255, 255, 255, 0.4), 0 0 100px 30px rgba(255, 253, 231, 0.2);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 50px 20px rgba(255, 255, 255, 0.5), 0 0 120px 40px rgba(255, 253, 231, 0.3); }
+        }
+
+        /* --- Animasi Ombak Parallax --- */
+        .waves {
+            position: absolute;
+            bottom: 8vh;
+            width: 100%;
+            height: 15vh;
+            min-height: 100px;
+            max-height: 150px;
+        }
+
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        /* --- Pohon Kelapa --- */
+        .palm-tree {
+            transform-origin: bottom center;
+            animation: sway 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* --- UI Elements & Glass Cards --- */
+        .glass-card {
+            background: rgba(10, 25, 47, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Slide Transition Overlay */
+        .slide-overlay {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .slide-hidden {
+            transform: translateY(100%) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .slide-visible {
+            transform: translateY(0%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-blue-300 selection:text-navy-900 min-h-screen relative overflow-x-hidden">
+
+    <nav class="sticky top-0 z-40 w-full bg-[#0A192F]/85 backdrop-blur-lg border-b border-white/20 px-4 py-3 shadow-lg">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            
+            <!-- Menu Desktop / PC / Laptop -->
+            <div class="hidden md:flex items-center justify-between w-full">
+                <div class="flex items-center gap-6">
+                    <a href="#bio" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Bio</a>
+                    <a href="#hobi" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Hobi</a>
+                    <a href="#keahlian" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Keahlian</a>
+                    <a href="#pendidikan" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Pendidikan</a>
+                    <a href="#prestasi" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Prestasi</a>
+                    <a href="#karya" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Karya</a>
+                    <a href="#kontak" class="text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white transition-colors">Kontak</a>
+                </div>
+                <button id="nav-admin-btn" title="Login Admin" aria-label="Login Admin" class="w-8 h-8 rounded-full bg-blue-500/30 hover:bg-blue-500/60 border border-blue-400/50 text-blue-100 text-sm font-bold transition-all flex items-center justify-center shadow shrink-0">
+                    🔒
+                </button>
+            </div>
+
+            <!-- Tampilan Mobile Phone -->
+            <div class="flex items-center justify-between w-full md:hidden">
+                <button id="nav-admin-btn-mobile" title="Login Admin" aria-label="Login Admin" class="w-8 h-8 rounded-full bg-blue-500/30 hover:bg-blue-500/60 border border-blue-400/50 text-blue-100 text-xs font-bold flex items-center justify-center shadow">
+                    🔒
+                </button>
+                <button id="mobile-menu-btn" aria-label="Toggle Menu Navigation" class="p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 focus:outline-none border border-white/20">
+                    <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden mt-3 pt-3 border-t border-white/15 flex flex-col gap-2 px-2 pb-2">
+            <a href="#bio" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Bio</a>
+            <a href="#hobi" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Hobi</a>
+            <a href="#keahlian" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Keahlian</a>
+            <a href="#pendidikan" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Pendidikan</a>
+            <a href="#prestasi" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Prestasi</a>
+            <a href="#karya" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Karya</a>
+            <a href="#kontak" class="mobile-nav-link text-xs uppercase tracking-widest font-bold text-blue-100 hover:text-white py-2 px-3 rounded-lg hover:bg-white/10 transition-all">Kontak</a>
+        </div>
+    </nav>
+
+    <div class="fixed inset-0 z-0 sky-bg pointer-events-none">
+        <div class="absolute top-12 right-10 w-24 h-24 rounded-full bg-white sun"></div>
+
+        <div class="absolute bottom-[6vh] -left-8 w-40 h-56 palm-tree z-20">
+            <svg viewBox="0 0 200 300" fill="#051024" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <path d="M90,300 C90,200 110,100 130,50 C120,60 90,150 70,300 Z" />
+                <path d="M130,50 C90,20 30,50 10,80 C40,70 80,60 130,50 Z" />
+                <path d="M130,50 C100,-10 40,10 20,30 C60,20 100,40 130,50 Z" />
+                <path d="M130,50 C150,0 190,10 200,40 C170,20 140,30 130,50 Z" />
+                <path d="M130,50 C170,30 200,70 190,100 C170,70 140,60 130,50 Z" />
+                <path d="M130,50 C140,80 160,120 130,140 C140,100 130,70 130,50 Z" />
+                <path d="M130,50 C90,80 60,110 50,140 C70,110 100,80 130,50 Z" />
+            </svg>
+        </div>
+
+        <svg class="waves z-10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255, 255, 255, 0.2)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255, 255, 255, 0.4)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(16, 42, 80, 0.8)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#0F2445" />
+            </g>
+        </svg>
+
+        <div class="absolute bottom-0 left-0 w-full h-[8vh] bg-gradient-to-b from-[#d4b895] to-[#c2a373] z-20 shadow-[inset_0_10px_20px_rgba(0,0,0,0.2)] border-t border-[#e8cead]/50"></div>
+    </div>
+
+    <main class="relative z-30 w-full max-w-md mx-auto pt-10 pb-24 px-5 flex flex-col items-center">
+        
+        <!-- Foto Profil -->
+        <div class="relative w-40 h-40 mb-5 float-anim group">
+            <div class="absolute inset-0 rounded-full bg-white/20 blur-md group-hover:blur-lg transition-all"></div>
+            <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-white/50 shadow-2xl bg-[#0A192F]">
+                <img 
+                    id="profile-img"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_3zApDgplbJ_QFUfNS3OLASDM0B56jA38kFBOgl8VTESeUs_npJeBzFtb&s=10" 
+                    alt="Maureen Everlyn Sanjaya" 
+                    class="w-full h-full object-cover object-center scale-110"
+                    onerror="this.src='https://placehold.co/200x200/0A192F/white?text=Foto+Profil'"
+                />
+            </div>
+            <div id="badge-text" class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#0A192F] text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap uppercase tracking-wider border border-blue-100">
+                On the Beach 🌴
+            </div>
+        </div>
+
+        <!-- Nama & Subtitle -->
+        <div class="text-center mb-8 mt-2">
+            <h1 id="profile-name" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white drop-shadow-md mb-1">
+                Maureen Everlyn Sanjaya
+            </h1>
+            <p id="profile-subtitle" class="text-blue-100 font-semibold tracking-wide text-xs sm:text-sm drop-shadow uppercase">
+                SMA MUTIARA BANGSA 2
+            </p>
+        </div>
+
+        <!-- Kartu Bio -->
+        <section id="bio" class="glass-card w-full rounded-3xl p-6 mb-8 scroll-mt-24">
+            <h2 class="text-lg font-bold mb-2 flex items-center gap-2 text-white border-b border-white/20 pb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                Biografi
+            </h2>
+            <p id="bio-text" class="text-blue-50 text-sm leading-relaxed font-medium">
+                Pindah dari atap rumah anjing merah ke hangatnya pasir putih. 
+                Hidup ini terlalu singkat untuk tidak mengejar ombak besar. 
+                Tunggu saya di pantai bersama papan selancar andalan!
+            </p>
+        </section>
+
+        <!-- Quote Favorit -->
+        <div class="w-full mb-8 scroll-mt-24 flex justify-center">
+            <div class="relative px-6 py-4 border-l-4 border-blue-400 bg-white/5 rounded-r-xl w-full shadow-lg">
+                <p id="quote-text" class="text-blue-100 italic font-medium text-sm text-center">
+                    "Selancar bukan tentang menaklukkan ombak, tapi tentang menyatu dengannya."
+                </p>
+            </div>
+        </div>
+
+        <!-- Hobi & Minat -->
+        <div id="hobi" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-3 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Hobi Favorit
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            
+            <div id="hobbies-grid" class="grid grid-cols-2 gap-3">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+
+        <!-- Keahlian -->
+        <div id="keahlian" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Keahlian
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div id="skills-container" class="flex flex-wrap justify-center gap-3">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+
+        <!-- Pendidikan -->
+        <div id="pendidikan" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Pendidikan
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div class="glass-card p-4 rounded-2xl flex items-center gap-4 hover:-translate-y-1 transition-all border border-white/10">
+                <div class="w-14 h-14 rounded-xl overflow-hidden bg-white/10 p-1 shrink-0 flex items-center justify-center border border-white/20">
+                    <img src="https://mutiarabangsa.sch.id/wp-content/uploads/2025/06/mutiarabangsa-logo.webp" alt="Logo Mutiara Bangsa" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://placehold.co/100x100/0A192F/white?text=MB2'">
+                </div>
+                <div class="flex flex-col">
+                    <h3 id="edu-school-text" class="text-sm font-extrabold text-white">SMA Mutiara Bangsa 2</h3>
+                    <p id="edu-desc-text" class="text-xs font-semibold text-blue-200 mt-1">Siswa Teladan • 2024 - 2027</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prestasi -->
+        <div id="prestasi" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Prestasi
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div id="achievements-container" class="flex flex-col gap-3">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+
+        <div id="karya" class="w-full mb-8 scroll-mt-24">
+            <div class="flex flex-col items-center mb-4">
+                <h2 class="text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                    <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                    Karya & Projects
+                    <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                </h2>
+                <span class="text-[11px] text-blue-200/90 mt-1.5 font-medium bg-blue-500/20 px-3 py-1 rounded-full border border-blue-400/30 text-center">
+                    💡 Klik project di bawah untuk melihat karya & link aplikasi!
+                </span>
+            </div>
+            
+            <div id="projects-container" class="flex flex-col gap-3">
+                <!-- Project Cards Rendered Dynamically -->
+            </div>
+        </div>
+
+        <!-- Form Kontak -->
+        <div id="kontak" class="w-full mb-8 scroll-mt-24">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                <span id="contact-title-text">Tertarik Bekerja Sama?</span>
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <form id="contact-form" class="glass-card p-5 rounded-2xl flex flex-col gap-3">
+                <input type="text" id="contact-name" placeholder="Nama Anda" class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required>
+                <input type="email" id="contact-email" placeholder="Email Anda" class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required>
+                <textarea id="contact-message" rows="3" placeholder="Pesan..." class="w-full bg-black/20 border border-white/20 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-blue-400" required></textarea>
+                <button type="submit" class="w-full py-3 mt-2 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2">
+                    Kirim Pesan
+                </button>
+            </form>
+            <div id="contact-success" class="hidden mt-4 text-center text-sm text-green-100 font-semibold bg-green-500/30 border border-green-400/50 p-3 rounded-xl backdrop-blur-sm">
+                Pesan Anda telah berhasil dikirim ke Inbox Admin! 📬🌊
+            </div>
+        </div>
+
+        <!-- Sosial Media Links Section -->
+        <div class="w-full mb-8 scroll-mt-24 text-center">
+            <h2 class="text-sm uppercase tracking-widest font-bold mb-4 flex items-center justify-center gap-2 text-blue-100 drop-shadow-md">
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+                Temukan Saya Di
+                <span class="w-8 h-[1px] bg-blue-300/50"></span>
+            </h2>
+            <div id="social-links-container" class="flex justify-center items-center gap-4 flex-wrap">
+                <a id="link-tiktok" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" title="Buka TikTok" class="glass-card p-3.5 rounded-2xl border border-white/20 hover:border-blue-300 hover:scale-110 transition-all flex items-center justify-center group shadow-lg">
+                    <svg class="w-6 h-6 fill-current text-white group-hover:text-pink-400 transition-colors" viewBox="0 0 24 24">
+                        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 11-5.2-1.74 2.89 2.89 0 012.31-1.33V9.13a6.32 6.32 0 106.34 6.34V9.12a8.18 8.18 0 004.77 1.52V7.19a4.85 4.85 0 01-1-0.5z"/>
+                    </svg>
+                </a>
+                <a id="link-instagram" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" title="Buka Instagram" class="glass-card p-3.5 rounded-2xl border border-white/20 hover:border-blue-300 hover:scale-110 transition-all flex items-center justify-center group shadow-lg">
+                    <svg class="w-6 h-6 fill-current text-white group-hover:text-pink-500 transition-colors" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a id="link-youtube" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" title="Buka YouTube" class="glass-card p-3.5 rounded-2xl border border-white/20 hover:border-blue-300 hover:scale-110 transition-all flex items-center justify-center group shadow-lg">
+                    <svg class="w-6 h-6 fill-current text-white group-hover:text-red-500 transition-colors" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </a>
+                <a id="link-x" href="https://x.com" target="_blank" rel="noopener noreferrer" title="Buka X (Twitter)" class="glass-card p-3.5 rounded-2xl border border-white/20 hover:border-blue-300 hover:scale-110 transition-all flex items-center justify-center group shadow-lg">
+                    <svg class="w-6 h-6 fill-current text-white group-hover:text-blue-400 transition-colors" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w-full mt-12 pt-6 border-t border-white/20 flex flex-col items-center gap-4 z-40">
+            <p class="text-[11px] text-blue-200/70 uppercase tracking-widest font-semibold flex items-center gap-2">
+                &copy; 2026 Maureen Everlyn Sanjaya.
+                <button id="open-login-btn" class="text-blue-300 hover:text-white font-bold underline transition-all ml-1">
+                    [ Access Backend Login ]
+                </button>
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Slide Overlay Detail Project Karya -->
+    <div id="project-detail-slide" class="fixed inset-0 z-[70] bg-[#0A192F] slide-overlay slide-hidden overflow-y-auto">
+        <div class="relative min-h-screen w-full max-w-2xl mx-auto p-6 pt-8 pb-24 flex flex-col">
+            <div class="flex items-center justify-between border-b border-white/20 pb-4 mb-6">
+                <button id="close-slide-btn" class="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-xl transition-all border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali ke Beranda
+                </button>
+                <span id="slide-badge" class="bg-blue-500/80 text-white text-[10px] uppercase font-extrabold px-3 py-1 rounded-full border border-white/20">
+                    Badge
+                </span>
+            </div>
+
+            <div class="flex items-start gap-4 mb-6">
+                <div id="slide-icon" class="p-4 bg-white/10 rounded-2xl text-4xl border border-white/20 shrink-0">
+                    🚀
+                </div>
+                <div>
+                    <h1 id="slide-title" class="text-2xl font-extrabold text-white mb-1">
+                        Judul Project
+                    </h1>
+                    <p id="slide-desc" class="text-sm text-blue-100/90 leading-relaxed font-medium">
+                        Deskripsi project...
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-4 flex-1">
+                <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <span>🎨</span> Daftar Karya & Application Links
+                    </h2>
+                    <span id="subworks-count" class="text-xs bg-white/10 text-blue-200 px-2.5 py-1 rounded-lg">
+                        0 Karya
+                    </span>
+                </div>
+
+                <div id="slide-subworks-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Sub-works cards rendered dynamically -->
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button id="close-slide-bottom-btn" class="w-full py-3 bg-blue-500/30 hover:bg-blue-500/50 border border-blue-400/40 rounded-xl text-white font-bold text-sm transition-all">
+                    ← Tutup Slide Project
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login Admin -->
+    <div id="login-modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center bg-black/70 backdrop-blur-md px-4">
+        <div class="bg-[#0A192F] border border-white/20 p-6 rounded-2xl w-full max-w-sm shadow-2xl transform transition-all">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span>🔒</span> Admin Login
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-blue-200 mb-1">Username</label>
+                    <input type="text" id="admin-user" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-400" placeholder="Username">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-blue-200 mb-1">Password</label>
+                    <input type="password" id="admin-pass" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-400" placeholder="Password">
+                </div>
+                <div id="login-error" class="text-red-400 text-xs hidden font-semibold">Username atau password salah!</div>
+                <div class="flex gap-3 mt-6">
+                    <button id="close-login-btn" class="flex-1 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors text-xs">Batal</button>
+                    <button id="submit-login-btn" class="flex-1 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-semibold transition-colors text-xs">Masuk Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-dashboard" class="fixed inset-0 z-[80] hidden bg-[#0A192F]/95 backdrop-blur-xl overflow-y-auto">
+        <div class="w-full max-w-2xl mx-auto p-6 pt-10 pb-24">
+            <div class="flex items-center justify-between mb-6 border-b border-white/20 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Dashboard CMS Backend</h2>
+                    <p class="text-xs text-blue-200 mt-1">Kelola biodata, foto profil, inbox pesan pengunjung, dan karya secara realtime.</p>
+                </div>
+                <button id="close-admin-btn" class="text-white/50 hover:text-white bg-white/10 p-2 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Fitur Backup / Restore Data JSON -->
+            <div class="bg-blue-600/20 border border-blue-400/40 p-4 rounded-xl mb-6 flex flex-col md:flex-row items-center justify-between gap-3 shadow-lg">
+                <div>
+                    <h3 class="text-xs font-bold text-blue-100 flex items-center gap-1.5">
+                        <span>💾</span> Backup & Restore Config
+                    </h3>
+                    <p class="text-[11px] text-blue-200/80 mt-0.5">Simpan cadangan data ke file JSON agar perubahan Anda aman tidak hilang.</p>
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto shrink-0">
+                    <button id="export-json-btn" class="flex-1 md:flex-none px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs rounded-lg transition-all shadow">
+                        📥 Export JSON
+                    </button>
+                    <label class="flex-1 md:flex-none px-3 py-2 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-lg transition-all border border-white/20 cursor-pointer text-center">
+                        📤 Import JSON
+                        <input type="file" id="import-json-file" accept=".json" class="hidden">
+                    </label>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Edit Foto Profil -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                    <label class="block text-sm font-bold text-blue-100 mb-2">Edit URL Foto Profil</label>
+                    <input type="text" id="edit-photo-url" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="https://domain.com/foto.jpg">
+                    <p class="text-[11px] text-blue-200/70 mt-1">Masukkan URL link gambar foto profil baru Anda.</p>
+                </div>
+
+                <!-- Edit Nama, Subtitle & Badge -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Nama, Gelar & Badge</label>
+                    <input type="text" id="edit-name" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Nama Anda">
+                    <input type="text" id="edit-subtitle" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Gelar / Profesi / Sekolah">
+                    <input type="text" id="edit-badge" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Teks Badge (Contoh: On the Beach 🌴)">
+                </div>
+
+                <!-- Edit Bio & Quote -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Biografi & Quote</label>
+                    <textarea id="edit-bio" rows="3" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Biografi singkat..."></textarea>
+                    <input type="text" id="edit-quote" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Quote favorit...">
+                </div>
+
+                <!-- Edit Hobi -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Hobi (4 Hobi)</label>
+                    <div id="admin-hobbies-container" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <!-- Rendered Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Edit Keahlian -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Keahlian (3 Skill)</label>
+                    <div id="admin-skills-container" class="space-y-2">
+                        <!-- Rendered Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Edit Pendidikan -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Pendidikan</label>
+                    <input type="text" id="edit-edu-school" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Nama Sekolah / Institusi">
+                    <input type="text" id="edit-edu-desc" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Status / Tahun (contoh: Siswa Teladan • 2024 - 2027)">
+                </div>
+
+                <!-- Edit Prestasi -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Prestasi (3 Prestasi)</label>
+                    <div id="admin-achievements-container" class="space-y-2">
+                        <!-- Rendered Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Inbox Pesan Masuk -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                        <div>
+                            <h3 class="text-base font-bold text-blue-100 flex items-center gap-2">
+                                <span>📬</span> Inbox Pesan Masuk (<span id="inbox-count">0</span>)
+                            </h3>
+                            <p class="text-xs text-blue-200/70">Pesan dari pengunjung web tersimpan di sini.</p>
+                        </div>
+                        <button type="button" id="clear-all-messages-btn" class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/40 text-red-200 border border-red-500/30 rounded-lg text-xs font-bold transition-all">
+                            🗑️ Hapus Semua
+                        </button>
+                    </div>
+                    <div id="admin-messages-list" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+                        <!-- Pesan-pesan dirender secara dinamis -->
+                    </div>
+                </div>
+
+                <!-- Edit Link Sosial Media -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Link Aplikasi Sosial Media</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[11px] text-blue-200/80 mb-1">TikTok</label>
+                            <input type="text" id="edit-link-tiktok" placeholder="https://www.tiktok.com" class="w-full bg-black/30 border border-white/20 rounded-lg p-2.5 text-white text-xs outline-none focus:border-blue-400">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-blue-200/80 mb-1">Instagram</label>
+                            <input type="text" id="edit-link-instagram" placeholder="https://www.instagram.com" class="w-full bg-black/30 border border-white/20 rounded-lg p-2.5 text-white text-xs outline-none focus:border-blue-400">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-blue-200/80 mb-1">YouTube</label>
+                            <input type="text" id="edit-link-youtube" placeholder="https://www.youtube.com" class="w-full bg-black/30 border border-white/20 rounded-lg p-2.5 text-white text-xs outline-none focus:border-blue-400">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-blue-200/80 mb-1">X (Twitter)</label>
+                            <input type="text" id="edit-link-x" placeholder="https://x.com" class="w-full bg-black/30 border border-white/20 rounded-lg p-2.5 text-white text-xs outline-none focus:border-blue-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Kontak & Email Penerima -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 space-y-3">
+                    <label class="block text-sm font-bold text-blue-100">Edit Judul Form Kontak & Email Penerima</label>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Judul Form Kontak</label>
+                            <input type="text" id="edit-contact-title" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="Tertarik Bekerja Sama?">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-blue-200/80 mb-1">Email Penerima Pesan</label>
+                            <input type="email" id="edit-contact-email" class="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white text-sm outline-none focus:border-blue-400" placeholder="maureen@gmail.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Projects & Karya Sub-items -->
+                <div class="bg-white/5 p-5 rounded-xl border border-white/10 space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div>
+                            <h3 class="text-base font-bold text-blue-100">Kelola Projects & Karya</h3>
+                            <p class="text-xs text-blue-200/70">Tambah/hapus project, ubah judul/badge, dan atur link karya direct di dalamnya.</p>
+                        </div>
+                        <button type="button" id="add-project-btn" class="px-3.5 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1 shadow shrink-0">
+                            <span>+</span> Tambah Project
+                        </button>
+                    </div>
+                    
+                    <div id="admin-projects-list" class="space-y-4">
+                        <!-- Project item forms rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button id="save-data-btn" class="w-full py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-base shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Simpan Semua Perubahan
+                </button>
+                <div id="save-status" class="text-green-400 text-sm text-center font-semibold hidden">Perubahan berhasil disimpan! ✅</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Query DOM Elements
+        const projectSlide = document.getElementById('project-detail-slide');
+        const slideTitle = document.getElementById('slide-title');
+        const slideDesc = document.getElementById('slide-desc');
+        const slideBadge = document.getElementById('slide-badge');
+        const slideIcon = document.getElementById('slide-icon');
+        const subworksCount = document.getElementById('subworks-count');
+        const slideGrid = document.getElementById('slide-subworks-grid');
+        const closeSlideBtn = document.getElementById('close-slide-btn');
+        const closeSlideBottomBtn = document.getElementById('close-slide-bottom-btn');
+
+        const loginModal = document.getElementById('login-modal');
+        const openLoginBtn = document.getElementById('open-login-btn');
+        const navAdminBtn = document.getElementById('nav-admin-btn');
+        const navAdminBtnMobile = document.getElementById('nav-admin-btn-mobile');
+        const closeLoginBtn = document.getElementById('close-login-btn');
+        const submitLoginBtn = document.getElementById('submit-login-btn');
+        const adminUser = document.getElementById('admin-user');
+        const adminPass = document.getElementById('admin-pass');
+        const loginError = document.getElementById('login-error');
+
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const closeAdminBtn = document.getElementById('close-admin-btn');
+        const editPhotoUrl = document.getElementById('edit-photo-url');
+        const editName = document.getElementById('edit-name');
+        const editSubtitle = document.getElementById('edit-subtitle');
+        const editBadge = document.getElementById('edit-badge');
+        const editBio = document.getElementById('edit-bio');
+        const editQuote = document.getElementById('edit-quote');
+
+        const editLinkTiktok = document.getElementById('edit-link-tiktok');
+        const editLinkInstagram = document.getElementById('edit-link-instagram');
+        const editLinkYoutube = document.getElementById('edit-link-youtube');
+        const editLinkX = document.getElementById('edit-link-x');
+
+        const adminMessagesList = document.getElementById('admin-messages-list');
+        const inboxCount = document.getElementById('inbox-count');
+        const clearAllMessagesBtn = document.getElementById('clear-all-messages-btn');
+
+        const adminProjectsList = document.getElementById('admin-projects-list');
+        const saveDataBtn = document.getElementById('save-data-btn');
+        const saveStatus = document.getElementById('save-status');
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        const exportJsonBtn = document.getElementById('export-json-btn');
+        const importJsonFile = document.getElementById('import-json-file');
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-snoopy-app';
+        let firebaseConfig = null;
+        let auth = null;
+        let db = null;
+        let docRef = null;
+
+        try { 
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                firebaseConfig = JSON.parse(__firebase_config); 
+            }
+        } catch (e) { console.error("Error parsing firebase config", e); }
+
+        // Core Default State
+        let currentData = {
+            photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_3zApDgplbJ_QFUfNS3OLASDM0B56jA38kFBOgl8VTESeUs_npJeBzFtb&s=10",
+            name: "Maureen Everlyn Sanjaya",
+            subtitle: "SMA MUTIARA BANGSA 2",
+            badgeText: "On the Beach 🌴",
+            bio: "Pindah dari atap rumah anjing merah ke hangatnya pasir putih. Hidup ini terlalu singkat untuk tidak mengejar ombak besar. Tunggu saya di pantai bersama papan selancar andalan!",
+            quote: "\"Selancar bukan tentang menaklukkan ombak, tapi tentang menyatu dengannya.\"",
+            hobbies: [
+                { text: "Selancar", icon: "🏄‍♂️" },
+                { text: "Tidur Siang", icon: "😴" },
+                { text: "Skateboard", icon: "🛹" },
+                { text: "Ngemil", icon: "🦴" }
+            ],
+            skills: ["Keseimbangan", "Gali Pasir", "Tangkap Frisbee"],
+            education: { school: "SMA Mutiara Bangsa 2", desc: "Siswa Teladan • 2024 - 2027" },
+            achievements: [
+                { text: "Juara 1 Selancar Tingkat RT", icon: "🏆" },
+                { text: "Peserta Tidur Siang Terlama", icon: "🏅" },
+                { text: "Master Papan Selancar 2026", icon: "🌟" }
+            ],
+            socials: {
+                tiktok: "https://www.tiktok.com",
+                instagram: "https://www.instagram.com",
+                youtube: "https://www.youtube.com",
+                x: "https://x.com"
+            },
+            messages: [],
+            projects: [
+                {
+                    id: "proj-1",
+                    title: "Aplikasi & Hiburan Favorit 🍿",
+                    desc: "Koleksi aplikasi streaming dan platform digital yang sering digunakan sehari-hari.",
+                    badge: "Featured",
+                    icon: "🎬",
+                    items: [
+                        { 
+                            title: "Netflix Stream", 
+                            desc: "Nonton film & serial populer favorit di waktu santai.", 
+                            link: "https://www.netflix.com",
+                            imageUrl: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&auto=format&fit=crop&q=80"
+                        },
+                        { 
+                            title: "Spotify Music", 
+                            desc: "Daftar putar lagu santai pantai dan musik selancar.", 
+                            link: "https://www.spotify.com",
+                            imageUrl: "https://images.unsplash.com/photo-1614680376593-902f749f71c3?w=600&auto=format&fit=crop&q=80"
+                        }
+                    ]
+                },
+                {
+                    id: "proj-2",
+                    title: "Koleksi Desain Papan Selancar 🏄‍♂️",
+                    desc: "Seni visual dan ilustrasi grafis custom untuk papan selancar.",
+                    badge: "Active",
+                    icon: "🎨",
+                    items: [
+                        { 
+                            title: "Papan Ocean Wave", 
+                            desc: "Motif gradasi biru air laut dengan ornamen ombak emas.", 
+                            link: "https://unsplash.com",
+                            imageUrl: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&auto=format&fit=crop&q=80"
+                        }
+                    ]
+                },
+                {
+                    id: "proj-3",
+                    title: "Project Database Firebase (Coming Soon P7)",
+                    desc: "Sistem integrasi database realtime Firebase untuk manajemen data portofolio.",
+                    badge: "Upcoming",
+                    icon: "🔥",
+                    items: [
+                        { 
+                            title: "Firebase Console", 
+                            desc: "Akses dashboard backend cloud realtime database.", 
+                            link: "https://firebase.google.com",
+                            imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80"
+                        }
+                    ]
+                }
+            ],
+            contact: { title: "Tertarik Bekerja Sama?", email: "maureen@gmail.com" }
+        };
+
+        // Window Memory Store Fallback
+        window.__snoopyMemoryStore = window.__snoopyMemoryStore || null;
+
+        // IndexedDB Persistence Helpers
+        function saveToIndexedDB(data) {
+            return new Promise((resolve) => {
+                try {
+                    const req = indexedDB.open('SnoopyDB', 1);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('profile')) {
+                            db.createObjectStore('profile');
+                        }
+                    };
+                    req.onsuccess = (e) => {
+                        const db = e.target.result;
+                        const tx = db.transaction('profile', 'readwrite');
+                        const store = tx.objectStore('profile');
+                        store.put(data, 'currentData');
+                        tx.oncomplete = () => resolve(true);
+                        tx.onerror = () => resolve(false);
+                    };
+                    req.onerror = () => resolve(false);
+                } catch(e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        function loadFromIndexedDB() {
+            return new Promise((resolve) => {
+                try {
+                    const req = indexedDB.open('SnoopyDB', 1);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('profile')) {
+                            db.createObjectStore('profile');
+                        }
+                    };
+                    req.onsuccess = (e) => {
+                        const db = e.target.result;
+                        const tx = db.transaction('profile', 'readonly');
+                        const store = tx.objectStore('profile');
+                        const getReq = store.get('currentData');
+                        getReq.onsuccess = () => resolve(getReq.result || null);
+                        getReq.onerror = () => resolve(null);
+                    };
+                    req.onerror = () => resolve(null);
+                } catch(e) {
+                    resolve(null);
+                }
+            });
+        }
+
+        // Multi-tier Storage Reader
+        async function loadLocalStoredData() {
+            let loadedData = null;
+
+            // 1. Memory Store
+            if (window.__snoopyMemoryStore) {
+                loadedData = window.__snoopyMemoryStore;
+            }
+
+            // 2. window.name (Sangat ampuh menahan data saat iframe di-refresh F5)
+            if (!loadedData) {
+                try {
+                    if (window.name && window.name.includes('SNOOPY_DATA_STORE:')) {
+                        const jsonStr = window.name.split('SNOOPY_DATA_STORE:')[1];
+                        if (jsonStr) {
+                            loadedData = JSON.parse(jsonStr);
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            // 3. localStorage & sessionStorage
+            if (!loadedData) {
+                try {
+                    const saved = localStorage.getItem('snoopyProfileData') || sessionStorage.getItem('snoopyProfileData');
+                    if (saved) {
+                        loadedData = JSON.parse(saved);
+                    }
+                } catch(e) {}
+            }
+
+            // 4. IndexedDB Client Database
+            if (!loadedData) {
+                try {
+                    const idbData = await loadFromIndexedDB();
+                    if (idbData) {
+                        loadedData = idbData;
+                    }
+                } catch(e) {}
+            }
+
+            if (loadedData && typeof loadedData === 'object') {
+                currentData = { ...currentData, ...loadedData };
+                window.__snoopyMemoryStore = currentData;
+            }
+        }
+
+        // Multi-tier Resilient Storage Writer
+        async function saveDataToStorageAndCloud() {
+            currentData.lastSaved = Date.now();
+            window.__snoopyMemoryStore = currentData;
+            
+            const str = JSON.stringify(currentData);
+
+            // Simpan ke window.name (Anti Hilang saat Refresh Iframe)
+            try {
+                window.name = 'SNOOPY_DATA_STORE:' + str;
+            } catch(e) {}
+
+            // Simpan ke LocalStorage & SessionStorage
+            try { localStorage.setItem('snoopyProfileData', str); } catch(e) {}
+            try { sessionStorage.setItem('snoopyProfileData', str); } catch(e) {}
+
+            // Simpan ke IndexedDB
+            try { await saveToIndexedDB(currentData); } catch(e) {}
+
+            // Simpan ke Cloud Firestore
+            if (docRef) {
+                try {
+                    await setDoc(docRef, currentData);
+                } catch(err) {
+                    console.warn("Firebase setDoc background sync:", err);
+                }
+            }
+        }
+
+        function syncProjectsFromDOM() {
+            const adminProjCards = document.querySelectorAll('#admin-projects-list > div');
+            if (!adminProjCards || adminProjCards.length === 0) return;
+
+            const updatedProjects = [];
+
+            adminProjCards.forEach((card, pIdx) => {
+                const icon = card.querySelector('.proj-icon')?.value || '🚀';
+                const title = card.querySelector('.proj-title')?.value || 'Project Baru';
+                const badge = card.querySelector('.proj-badge')?.value || 'Active';
+                const desc = card.querySelector('.proj-desc')?.value || '';
+
+                const itemCards = card.querySelectorAll('.admin-items-container > div');
+                const items = [];
+
+                itemCards.forEach((itemCard) => {
+                    const iTitle = itemCard.querySelector('.item-title')?.value || '';
+                    const iLink = itemCard.querySelector('.item-link')?.value || '';
+                    const iImage = itemCard.querySelector('.item-image-url')?.value || '';
+                    const iDesc = itemCard.querySelector('.item-desc')?.value || '';
+
+                    if (iTitle || iLink) {
+                        items.push({
+                            title: iTitle,
+                            link: iLink,
+                            imageUrl: iImage,
+                            desc: iDesc
+                        });
+                    }
+                });
+
+                updatedProjects.push({
+                    id: currentData.projects?.[pIdx]?.id || ("proj-" + pIdx + "-" + Date.now()),
+                    icon,
+                    title,
+                    badge,
+                    desc,
+                    items
+                });
+            });
+
+            currentData.projects = updatedProjects;
+        }
+
+        function getThumbnailFromUrl(linkUrl) {
+            if (!linkUrl) return 'https://www.google.com/s2/favicons?domain=google.com&sz=128';
+            try {
+                const parsed = new URL(linkUrl.startsWith('http') ? linkUrl : 'https://' + linkUrl);
+                return `https://www.google.com/s2/favicons?domain=${parsed.hostname}&sz=128`;
+            } catch(e) {
+                return 'https://www.google.com/s2/favicons?domain=google.com&sz=128';
+            }
+        }
+
+        function getDomainName(linkUrl) {
+            if (!linkUrl) return 'google.com';
+            try {
+                const parsed = new URL(linkUrl.startsWith('http') ? linkUrl : 'https://' + linkUrl);
+                return parsed.hostname.replace('www.', '');
+            } catch(e) {
+                return 'google.com';
+            }
+        }
+
+        function updatePublicUI() {
+            const imgEl = document.getElementById('profile-img');
+            if (imgEl) imgEl.src = currentData.photoUrl || "https://placehold.co/200x200/0A192F/white?text=Foto";
+
+            const nameEl = document.getElementById('profile-name');
+            if (nameEl) nameEl.innerText = currentData.name || "Maureen Everlyn Sanjaya";
+
+            const subEl = document.getElementById('profile-subtitle');
+            if (subEl) subEl.innerText = currentData.subtitle || "SMA MUTIARA BANGSA 2";
+
+            const badgeEl = document.getElementById('badge-text');
+            if (badgeEl) badgeEl.innerText = currentData.badgeText || "On the Beach 🌴";
+
+            const bioEl = document.getElementById('bio-text');
+            if (bioEl) bioEl.innerText = currentData.bio || "";
+
+            const quoteEl = document.getElementById('quote-text');
+            if (quoteEl) quoteEl.innerText = currentData.quote || "";
+
+            // Hobbies
+            const hGrid = document.getElementById('hobbies-grid');
+            if (hGrid && currentData.hobbies) {
+                hGrid.innerHTML = currentData.hobbies.map(h => `
+                    <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-1">
+                        <div class="p-3 rounded-full bg-white/5 text-3xl">${h.icon || '🏄‍♂️'}</div>
+                        <span class="text-xs font-bold text-blue-50">${h.text || ''}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Skills
+            const sContainer = document.getElementById('skills-container');
+            if (sContainer && currentData.skills) {
+                sContainer.innerHTML = currentData.skills.map(s => `
+                    <span class="glass-card px-4 py-2 rounded-full text-xs font-bold text-white border border-blue-200/30">${s}</span>
+                `).join('');
+            }
+
+            // Education
+            if (currentData.education) {
+                const schoolEl = document.getElementById('edu-school-text');
+                const descEl = document.getElementById('edu-desc-text');
+                if (schoolEl) schoolEl.innerText = currentData.education.school || "SMA Mutiara Bangsa 2";
+                if (descEl) descEl.innerText = currentData.education.desc || "Siswa Teladan • 2024 - 2027";
+            }
+
+            // Achievements
+            const aContainer = document.getElementById('achievements-container');
+            if (aContainer && currentData.achievements) {
+                aContainer.innerHTML = currentData.achievements.map(a => `
+                    <div class="glass-card py-3 px-4 rounded-xl flex items-center gap-3 border border-white/10 shadow-sm">
+                        <span class="text-xl">${a.icon || '🏆'}</span>
+                        <span class="text-xs font-bold text-white">${a.text || ''}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Socials
+            if (currentData.socials) {
+                const tiktokEl = document.getElementById('link-tiktok');
+                const instaEl = document.getElementById('link-instagram');
+                const ytEl = document.getElementById('link-youtube');
+                const xEl = document.getElementById('link-x');
+
+                if (tiktokEl) tiktokEl.href = currentData.socials.tiktok || "https://www.tiktok.com";
+                if (instaEl) instaEl.href = currentData.socials.instagram || "https://www.instagram.com";
+                if (ytEl) ytEl.href = currentData.socials.youtube || "https://www.youtube.com";
+                if (xEl) xEl.href = currentData.socials.x || "https://x.com";
+            }
+
+            // Contact
+            const cTitleEl = document.getElementById('contact-title-text');
+            if (cTitleEl) cTitleEl.innerText = currentData.contact?.title || "Tertarik Bekerja Sama?";
+
+            // RENDER PROJECTS & KARYA SECTION
+            const pContainer = document.getElementById('projects-container');
+            if (pContainer) {
+                pContainer.innerHTML = '';
+                const projs = currentData.projects || [];
+                if (projs.length === 0) {
+                    pContainer.innerHTML = `
+                        <div class="glass-card p-6 rounded-2xl text-center text-blue-200/60">
+                            <p class="text-xs font-semibold">Belum ada project yang ditambahkan.</p>
+                        </div>
+                    `;
+                } else {
+                    projs.forEach((proj) => {
+                        const card = document.createElement('div');
+                        card.className = "glass-card p-5 rounded-2xl flex items-center justify-between cursor-pointer hover:border-blue-300/60 hover:scale-[1.02] transition-all duration-300 shadow-xl group";
+                        
+                        const itemsCount = proj.items ? proj.items.length : 0;
+                        const badgeBg = proj.badge === 'Upcoming' ? 'bg-amber-500/80 border-amber-300/40' : 'bg-blue-500/80 border-blue-300/40';
+
+                        card.innerHTML = `
+                            <div class="flex items-center gap-4">
+                                <div class="p-3 bg-white/10 rounded-2xl text-2xl group-hover:scale-110 transition-transform border border-white/15">
+                                    ${proj.icon || '🚀'}
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center gap-2">
+                                        <h3 class="text-sm font-extrabold text-white group-hover:text-blue-200 transition-colors">${proj.title || 'Judul Project'}</h3>
+                                        <span class="text-[9px] uppercase font-black px-2 py-0.5 rounded-full text-white border ${badgeBg}">${proj.badge || 'Active'}</span>
+                                    </div>
+                                    <p class="text-xs text-blue-200/80 line-clamp-1 mt-0.5 font-medium">${proj.desc || ''}</p>
+                                    <span class="text-[10px] text-blue-300/90 font-bold mt-1.5 flex items-center gap-1">
+                                        🎨 ${itemsCount} Karya / Aplikasi
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-blue-300 group-hover:translate-x-1 transition-transform text-lg font-bold">
+                                ➔
+                            </div>
+                        `;
+
+                        card.addEventListener('click', () => {
+                            openProjectSlide(proj);
+                        });
+
+                        pContainer.appendChild(card);
+                    });
+                }
+            }
+        }
+
+        function openProjectSlide(proj) {
+            if (!projectSlide) return;
+            if (slideTitle) slideTitle.innerText = proj.title || "Detail Project";
+            if (slideDesc) slideDesc.innerText = proj.desc || "";
+            if (slideBadge) slideBadge.innerText = proj.badge || "Project";
+            if (slideIcon) slideIcon.innerText = proj.icon || "🚀";
+
+            const items = proj.items || [];
+            if (subworksCount) subworksCount.innerText = `${items.length} Karya`;
+
+            if (slideGrid) {
+                slideGrid.innerHTML = '';
+                if (items.length === 0) {
+                    slideGrid.innerHTML = `
+                        <div class="col-span-full py-12 text-center text-blue-200/60 bg-white/5 rounded-2xl border border-white/10">
+                            <p class="text-2xl mb-2">🎨</p>
+                            <p class="text-xs font-semibold">Belum ada karya dalam project ini.</p>
+                            <p class="text-[11px] mt-1 text-blue-300/60">Anda bisa menambahkan item karya melalui Backend Admin!</p>
+                        </div>
+                    `;
+                } else {
+                    items.forEach((item) => {
+                        const itemCard = document.createElement('div');
+                        itemCard.className = "glass-card rounded-2xl border border-white/15 overflow-hidden flex flex-col justify-between hover:border-blue-300/50 transition-all shadow-lg group";
+                        
+                        const itemLink = item.link && item.link.trim() !== '' ? item.link.trim() : "https://google.com";
+                        const faviconUrl = getThumbnailFromUrl(itemLink);
+                        const domainName = getDomainName(itemLink);
+
+                        const fallbackImg = `https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80`;
+                        const displayImgUrl = (item.imageUrl && item.imageUrl.trim() !== '') ? item.imageUrl.trim() : fallbackImg;
+
+                        itemCard.innerHTML = `
+                            <div>
+                                <a href="${itemLink}" target="_blank" rel="noopener noreferrer" class="relative block w-full h-44 bg-black/40 overflow-hidden border-b border-white/15 group/img">
+                                    <img 
+                                        src="${displayImgUrl}" 
+                                        alt="${item.title || 'Foto Karya'}" 
+                                        class="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
+                                        onerror="this.onerror=null; this.src='${fallbackImg}';"
+                                    />
+                                    <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20 flex items-center gap-1.5 shadow">
+                                        <img src="${faviconUrl}" class="w-3.5 h-3.5 object-contain" alt="icon">
+                                        <span>${domainName}</span>
+                                    </div>
+                                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span class="bg-blue-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl border border-white/30 shadow-lg">Buka Link ↗</span>
+                                    </div>
+                                </a>
+
+                                <div class="p-4">
+                                    <h4 class="text-base font-extrabold text-white mb-1.5 group-hover:text-blue-300 transition-colors">
+                                        ${item.title || 'Judul Karya'}
+                                    </h4>
+                                    <p class="text-xs text-blue-100/80 leading-relaxed font-medium mb-4">${item.desc || ''}</p>
+                                </div>
+                            </div>
+
+                            <div class="px-4 pb-4">
+                                <a href="${itemLink}" target="_blank" rel="noopener noreferrer" title="Buka Link Website" class="w-full py-2.5 px-4 bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs rounded-xl transition-all border border-blue-300/40 flex items-center justify-center gap-2 shadow-md">
+                                    <span>Buka ${domainName}</span>
+                                    <span>↗</span>
+                                </a>
+                            </div>
+                        `;
+
+                        slideGrid.appendChild(itemCard);
+                    });
+                }
+            }
+
+            projectSlide.classList.remove('slide-hidden');
+            projectSlide.classList.add('slide-visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectSlide() {
+            if (!projectSlide) return;
+            projectSlide.classList.remove('slide-visible');
+            projectSlide.classList.add('slide-hidden');
+            document.body.style.overflow = '';
+        }
+
+        closeSlideBtn?.addEventListener('click', closeProjectSlide);
+        closeSlideBottomBtn?.addEventListener('click', closeProjectSlide);
+
+        function openAdminModal() {
+            loginModal?.classList.remove('hidden');
+            loginError?.classList.add('hidden');
+        }
+
+        function closeAdminModal() {
+            loginModal?.classList.add('hidden');
+        }
+
+        openLoginBtn?.addEventListener('click', openAdminModal);
+        navAdminBtn?.addEventListener('click', openAdminModal);
+        navAdminBtnMobile?.addEventListener('click', openAdminModal);
+        closeLoginBtn?.addEventListener('click', closeAdminModal);
+
+        submitLoginBtn?.addEventListener('click', () => {
+            const u = adminUser ? adminUser.value.trim() : '';
+            const p = adminPass ? adminPass.value.trim() : '';
+
+            if (u === 'maureen' && p === 'maureen07') {
+                closeAdminModal();
+                updateAdminUI();
+                adminDashboard?.classList.remove('hidden');
+            } else {
+                loginError?.classList.remove('hidden');
+            }
+        });
+
+        closeAdminBtn?.addEventListener('click', () => {
+            adminDashboard?.classList.add('hidden');
+        });
+
+        function updateAdminUI() {
+            if (editPhotoUrl) editPhotoUrl.value = currentData.photoUrl || '';
+            if (editName) editName.value = currentData.name || '';
+            if (editSubtitle) editSubtitle.value = currentData.subtitle || '';
+            if (editBadge) editBadge.value = currentData.badgeText || '';
+            if (editBio) editBio.value = currentData.bio || '';
+            if (editQuote) editQuote.value = currentData.quote || '';
+
+            // Admin Hobbies
+            const hContainer = document.getElementById('admin-hobbies-container');
+            if (hContainer && currentData.hobbies) {
+                hContainer.innerHTML = currentData.hobbies.map((h, i) => `
+                    <div class="flex items-center gap-2">
+                        <input type="text" value="${h.icon || '🏄‍♂️'}" class="admin-hobby-icon w-12 bg-black/30 border border-white/20 rounded-lg p-2 text-center text-white text-xs outline-none">
+                        <input type="text" value="${h.text || ''}" class="admin-hobby-text flex-1 bg-black/30 border border-white/20 rounded-lg p-2 text-white text-xs outline-none" placeholder="Hobi ${i+1}">
+                    </div>
+                `).join('');
+            }
+
+            // Admin Skills
+            const sContainer = document.getElementById('admin-skills-container');
+            if (sContainer && currentData.skills) {
+                sContainer.innerHTML = currentData.skills.map((s, i) => `
+                    <input type="text" value="${s || ''}" class="admin-skill-input w-full bg-black/30 border border-white/20 rounded-lg p-2 text-white text-xs outline-none" placeholder="Keahlian ${i+1}">
+                `).join('');
+            }
+
+            // Admin Education
+            if (currentData.education) {
+                const sEl = document.getElementById('edit-edu-school');
+                const dEl = document.getElementById('edit-edu-desc');
+                if (sEl) sEl.value = currentData.education.school || '';
+                if (dEl) dEl.value = currentData.education.desc || '';
+            }
+
+            // Admin Achievements
+            const aContainer = document.getElementById('admin-achievements-container');
+            if (aContainer && currentData.achievements) {
+                aContainer.innerHTML = currentData.achievements.map((a, i) => `
+                    <div class="flex items-center gap-2">
+                        <input type="text" value="${a.icon || '🏆'}" class="admin-achv-icon w-12 bg-black/30 border border-white/20 rounded-lg p-2 text-center text-white text-xs outline-none">
+                        <input type="text" value="${a.text || ''}" class="admin-achv-text flex-1 bg-black/30 border border-white/20 rounded-lg p-2 text-white text-xs outline-none" placeholder="Prestasi ${i+1}">
+                    </div>
+                `).join('');
+            }
+
+            // Admin Social Links
+            if (currentData.socials) {
+                if (editLinkTiktok) editLinkTiktok.value = currentData.socials.tiktok || '';
+                if (editLinkInstagram) editLinkInstagram.value = currentData.socials.instagram || '';
+                if (editLinkYoutube) editLinkYoutube.value = currentData.socials.youtube || '';
+                if (editLinkX) editLinkX.value = currentData.socials.x || '';
+            }
+
+            // Admin Contact Info
+            if (currentData.contact) {
+                const ctEl = document.getElementById('edit-contact-title');
+                const ceEl = document.getElementById('edit-contact-email');
+                if (ctEl) ctEl.value = currentData.contact.title || '';
+                if (ceEl) ceEl.value = currentData.contact.email || '';
+            }
+
+            renderAdminProjectsList();
+            renderAdminMessagesList();
+        }
+
+        function renderAdminMessagesList() {
+            if (!adminMessagesList) return;
+            adminMessagesList.innerHTML = '';
+
+            const msgs = currentData.messages || [];
+            if (inboxCount) inboxCount.innerText = msgs.length.toString();
+
+            if (msgs.length === 0) {
+                adminMessagesList.innerHTML = `<p class="text-xs text-blue-200/60 italic text-center py-3">Belum ada pesan masuk.</p>`;
+                return;
+            }
+
+            msgs.forEach((m, idx) => {
+                const box = document.createElement('div');
+                box.className = "bg-black/40 p-3 rounded-lg border border-white/10 space-y-1 relative group";
+                box.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-blue-300">${m.name || 'Pengunjung'}</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-blue-200/60">${m.date || ''}</span>
+                            <button type="button" data-idx="${idx}" class="btn-del-msg text-red-400 hover:text-red-300 text-xs font-bold px-1.5 py-0.5 rounded bg-red-500/10 hover:bg-red-500/20">Hapus</button>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-blue-200/80 font-medium">${m.email || ''}</p>
+                    <p class="text-xs text-white/90 bg-white/5 p-2 rounded border border-white/10 mt-1">${m.message || ''}</p>
+                `;
+                adminMessagesList.appendChild(box);
+            });
+
+            document.querySelectorAll('.btn-del-msg').forEach(btn => {
+                btn.onclick = (e) => {
+                    const idx = parseInt(e.currentTarget.getAttribute('data-idx'));
+                    currentData.messages.splice(idx, 1);
+                    saveDataToStorageAndCloud();
+                    renderAdminMessagesList();
+                };
+            });
+        }
+
+        clearAllMessagesBtn?.addEventListener('click', () => {
+            currentData.messages = [];
+            saveDataToStorageAndCloud();
+            renderAdminMessagesList();
+        });
+
+        function renderAdminProjectsList() {
+            if (!adminProjectsList) return;
+            adminProjectsList.innerHTML = '';
+            
+            if (!currentData.projects) currentData.projects = [];
+
+            if (currentData.projects.length === 0) {
+                adminProjectsList.innerHTML = `<p class="text-xs text-blue-200/60 italic text-center py-2">Belum ada project.</p>`;
+                return;
+            }
+
+            currentData.projects.forEach((proj, pIdx) => {
+                const projCard = document.createElement('div');
+                projCard.className = "bg-black/40 p-4 rounded-xl border border-white/15 space-y-3 relative";
+                
+                const itemsCount = proj.items ? proj.items.length : 0;
+
+                projCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                        <span class="text-xs font-extrabold text-blue-300">PROJECT #${pIdx + 1}</span>
+                        <button type="button" data-pidx="${pIdx}" class="btn-del-proj text-xs text-red-400 hover:text-red-300 bg-red-500/10 px-2.5 py-1 rounded-lg font-semibold border border-red-500/30">
+                            🗑️ Hapus Project
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" value="${proj.icon || '🚀'}" placeholder="Emoji" class="proj-icon w-full bg-white/10 border border-white/20 rounded-lg px-2 text-center text-white text-xs py-2 outline-none">
+                        <input type="text" value="${proj.title || ''}" placeholder="Judul Project" class="proj-title col-span-2 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">
+                    </div>
+
+                    <input type="text" value="${proj.badge || 'Active'}" placeholder="Badge (Active / Featured / Upcoming)" class="proj-badge w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">
+
+                    <textarea rows="2" placeholder="Deskripsi Singkat Project" class="proj-desc w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-xs outline-none">${proj.desc || ''}</textarea>
+
+                    <div class="mt-4 pt-3 border-t border-white/10">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-blue-200">🖼️ Item Karya (${itemsCount})</span>
+                            <button type="button" data-pidx="${pIdx}" class="btn-add-item px-2.5 py-1 bg-emerald-500/30 hover:bg-emerald-500/50 text-emerald-200 border border-emerald-400/40 rounded-lg text-[11px] font-bold">
+                                + Tambah Karya
+                            </button>
+                        </div>
+                        <div class="admin-items-container space-y-2.5" data-pidx="${pIdx}">
+                        </div>
+                    </div>
+                `;
+
+                adminProjectsList.appendChild(projCard);
+
+                const itemsContainer = projCard.querySelector('.admin-items-container');
+                if (proj.items && proj.items.length > 0) {
+                    proj.items.forEach((item, iIdx) => {
+                        const itemBox = document.createElement('div');
+                        itemBox.className = "bg-white/5 p-3 rounded-lg border border-white/10 space-y-2";
+                        itemBox.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] text-blue-300/80 font-bold">Karya #${iIdx + 1}</span>
+                                <button type="button" data-pidx="${pIdx}" data-iidx="${iIdx}" class="btn-del-item text-[10px] text-red-400 hover:text-red-300 font-bold">
+                                    [Hapus]
+                                </button>
+                            </div>
+                            <input type="text" value="${item.title || ''}" placeholder="Judul Karya / Aplikasi" class="item-title w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">
+                            <input type="text" value="${item.link || ''}" placeholder="URL Link Website Direct (contoh: https://netflix.com)" class="item-link w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">
+                            <input type="text" value="${item.imageUrl || ''}" placeholder="URL Foto Gambar Custom (opsional)" class="item-image-url w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">
+                            <textarea rows="1" placeholder="Deskripsi Karya" class="item-desc w-full bg-black/40 border border-white/20 rounded px-2.5 py-1.5 text-white text-xs outline-none">${item.desc || ''}</textarea>
+                        `;
+                        itemsContainer.appendChild(itemBox);
+                    });
+                } else {
+                    itemsContainer.innerHTML = `<p class="text-[11px] text-white/40 italic">Belum ada karya di dalam project ini.</p>`;
+                }
+            });
+
+            document.querySelectorAll('.btn-del-proj').forEach(btn => {
+                btn.onclick = (e) => {
+                    syncProjectsFromDOM();
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    currentData.projects.splice(pidx, 1);
+                    renderAdminProjectsList();
+                };
+            });
+
+            document.querySelectorAll('.btn-add-item').forEach(btn => {
+                btn.onclick = (e) => {
+                    syncProjectsFromDOM();
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    if (!currentData.projects[pidx].items) currentData.projects[pidx].items = [];
+                    currentData.projects[pidx].items.push({
+                        title: "Karya Baru",
+                        desc: "Deskripsi karya baru.",
+                        link: "https://netflix.com",
+                        imageUrl: ""
+                    });
+                    renderAdminProjectsList();
+                };
+            });
+
+            document.querySelectorAll('.btn-del-item').forEach(btn => {
+                btn.onclick = (e) => {
+                    syncProjectsFromDOM();
+                    const pidx = parseInt(e.currentTarget.getAttribute('data-pidx'));
+                    const iidx = parseInt(e.currentTarget.getAttribute('data-iidx'));
+                    currentData.projects[pidx].items.splice(iidx, 1);
+                    renderAdminProjectsList();
+                };
+            });
+        }
+
+        document.getElementById('add-project-btn')?.addEventListener('click', () => {
+            syncProjectsFromDOM();
+            if (!currentData.projects) currentData.projects = [];
+            currentData.projects.push({
+                id: "proj-" + Date.now(),
+                title: "Project Baru",
+                desc: "Deskripsi singkat tentang project ini.",
+                badge: "Active",
+                icon: "🚀",
+                items: []
+            });
+            renderAdminProjectsList();
+        });
+
+        exportJsonBtn?.addEventListener('click', () => {
+            syncProjectsFromDOM();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", `snoopy-profile-data-${Date.now()}.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+        });
+
+        importJsonFile?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const parsed = JSON.parse(event.target.result);
+                    if (parsed && typeof parsed === 'object') {
+                        currentData = { ...currentData, ...parsed };
+                        await saveDataToStorageAndCloud();
+                        updatePublicUI();
+                        updateAdminUI();
+                        if (saveStatus) {
+                            saveStatus.innerText = "Data JSON berhasil di-import! ✅";
+                            saveStatus.classList.remove('hidden');
+                            setTimeout(() => saveStatus.classList.add('hidden'), 3500);
+                        }
+                    }
+                } catch(err) {
+                    alert("Format file JSON tidak valid.");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        saveDataBtn?.addEventListener('click', async () => {
+            syncProjectsFromDOM();
+
+            if (editPhotoUrl) currentData.photoUrl = editPhotoUrl.value.trim() || currentData.photoUrl;
+            if (editName) currentData.name = editName.value;
+            if (editSubtitle) currentData.subtitle = editSubtitle.value;
+            if (editBadge) currentData.badgeText = editBadge.value;
+            if (editBio) currentData.bio = editBio.value;
+            if (editQuote) currentData.quote = editQuote.value;
+
+            currentData.socials = {
+                tiktok: editLinkTiktok?.value.trim() || "https://www.tiktok.com",
+                instagram: editLinkInstagram?.value.trim() || "https://www.instagram.com",
+                youtube: editLinkYoutube?.value.trim() || "https://www.youtube.com",
+                x: editLinkX?.value.trim() || "https://x.com"
+            };
+
+            // Hobbies
+            const hobbyIcons = document.querySelectorAll('.admin-hobby-icon');
+            const hobbyTexts = document.querySelectorAll('.admin-hobby-text');
+            const newHobbies = [];
+            hobbyIcons.forEach((iconInput, idx) => {
+                newHobbies.push({
+                    icon: iconInput.value || '🏄‍♂️',
+                    text: hobbyTexts[idx]?.value || ''
+                });
+            });
+            currentData.hobbies = newHobbies;
+
+            // Skills
+            const skillInputs = document.querySelectorAll('.admin-skill-input');
+            const newSkills = [];
+            skillInputs.forEach(input => {
+                newSkills.push(input.value || '');
+            });
+            currentData.skills = newSkills;
+
+            // Education
+            currentData.education = {
+                school: document.getElementById('edit-edu-school')?.value || '',
+                desc: document.getElementById('edit-edu-desc')?.value || ''
+            };
+
+            // Achievements
+            const achvIcons = document.getElementById('admin-achievements-container')?.querySelectorAll('.admin-achv-icon');
+            const achvTexts = document.getElementById('admin-achievements-container')?.querySelectorAll('.admin-achv-text');
+            const newAchievements = [];
+            if (achvIcons) {
+                achvIcons.forEach((iconInput, idx) => {
+                    newAchievements.push({
+                        icon: iconInput.value || '🏆',
+                        text: achvTexts[idx]?.value || ''
+                    });
+                });
+                currentData.achievements = newAchievements;
+            }
+
+            // Contact
+            currentData.contact = {
+                title: document.getElementById('edit-contact-title')?.value || 'Tertarik Bekerja Sama?',
+                email: document.getElementById('edit-contact-email')?.value || 'maureen@gmail.com'
+            };
+
+            if (saveDataBtn) saveDataBtn.innerText = "Menyimpan...";
+            await saveDataToStorageAndCloud();
+            updatePublicUI();
+            
+            if (saveStatus) {
+                saveStatus.innerText = "Perubahan berhasil disimpan permanen! ✅";
+                saveStatus.classList.remove('hidden');
+                setTimeout(() => saveStatus.classList.add('hidden'), 3500);
+            }
+            if (saveDataBtn) saveDataBtn.innerText = "Simpan Semua Perubahan";
+        });
+
+        // Contact Form Submission
+        document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nameEl = document.getElementById('contact-name');
+            const emailEl = document.getElementById('contact-email');
+            const msgEl = document.getElementById('contact-message');
+
+            const name = nameEl ? nameEl.value.trim() : 'Pengunjung';
+            const email = emailEl ? emailEl.value.trim() : '';
+            const message = msgEl ? msgEl.value.trim() : '';
+
+            if (!currentData.messages) currentData.messages = [];
+
+            currentData.messages.unshift({
+                id: "msg-" + Date.now(),
+                name,
+                email,
+                message,
+                date: new Date().toLocaleString('id-ID')
+            });
+
+            await saveDataToStorageAndCloud();
+
+            const succ = document.getElementById('contact-success');
+            if (succ) {
+                succ.classList.remove('hidden');
+            }
+
+            e.target.reset();
+            setTimeout(() => succ?.classList.add('hidden'), 4000);
+        });
+
+        // Mobile Menu Toggle
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                hamburgerIcon?.classList.toggle('hidden');
+                closeIcon?.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon?.classList.remove('hidden');
+                    closeIcon?.classList.add('hidden');
+                });
+            });
+        }
+
+        async function initAuth() {
+            await loadLocalStoredData();
+            updatePublicUI();
+
+            if (firebaseConfig) {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+                    docRef = doc(db, "snoopyProfiles", appId);
+
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+
+                    onSnapshot(docRef, (snapshot) => {
+                        if (snapshot.exists()) {
+                            const cloudData = snapshot.data();
+                            if (cloudData && typeof cloudData === 'object') {
+                                const localSavedTime = currentData.lastSaved || 0;
+                                const cloudSavedTime = cloudData.lastSaved || 0;
+                                
+                                // Hanya timpa jika data di cloud BENAR-BENAR LEBIH BARU
+                                if (cloudSavedTime > localSavedTime) {
+                                    currentData = { ...currentData, ...cloudData };
+                                    window.__snoopyMemoryStore = currentData;
+                                    const str = JSON.stringify(currentData);
+                                    try { window.name = 'SNOOPY_DATA_STORE:' + str; } catch(e){}
+                                    try { localStorage.setItem('snoopyProfileData', str); } catch(e){}
+                                    try { sessionStorage.setItem('snoopyProfileData', str); } catch(e){}
+                                    saveToIndexedDB(currentData);
+                                    updatePublicUI();
+                                }
+                            }
+                        }
+                    }, (err) => {
+                        console.warn("Firestore snapshot error:", err);
+                    });
+                } catch(e) {
+                    console.warn("Firebase initialization error:", e);
+                }
+            }
+        }
+
+        // Initialize App
+        initAuth();
+    </script>
+</body>
+</html>
