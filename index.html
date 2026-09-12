@@ -793,7 +793,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Query DOM Elements
         const projectSlide = document.getElementById('project-detail-slide');
@@ -846,17 +846,19 @@
         const exportJsonBtn = document.getElementById('export-json-btn');
         const importJsonFile = document.getElementById('import-json-file');
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-snoopy-app';
-        let firebaseConfig = null;
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcSi2nCSDbPLCKhwrp9-X3pbAaA5Z8D4s",
+            authDomain: "my-portofolio-89d8e.firebaseapp.com",
+            projectId: "my-portofolio-89d8e",
+            storageBucket: "my-portofolio-89d8e.firebasestorage.app",
+            messagingSenderId: "20375164748",
+            appId: "1:20375164748:web:115c65451a1a92842b21e9"
+        };
+
         let auth = null;
         let db = null;
         let docRef = null;
-
-        try {
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                firebaseConfig = JSON.parse(__firebase_config);
-            }
-        } catch (e) { console.error("Error parsing firebase config", e); }
 
         // Core Default State
         let currentData = {
@@ -942,133 +944,21 @@
             contact: { title: "Tertarik Bekerja Sama?", email: "maureen@gmail.com" }
         };
 
-        // Window Memory Store Fallback
-        window.__snoopyMemoryStore = window.__snoopyMemoryStore || null;
-
-        // IndexedDB Persistence Helpers
-        function saveToIndexedDB(data) {
-            return new Promise((resolve) => {
-                try {
-                    const req = indexedDB.open('SnoopyDB', 1);
-                    req.onupgradeneeded = (e) => {
-                        const db = e.target.result;
-                        if (!db.objectStoreNames.contains('profile')) {
-                            db.createObjectStore('profile');
-                        }
-                    };
-                    req.onsuccess = (e) => {
-                        const db = e.target.result;
-                        const tx = db.transaction('profile', 'readwrite');
-                        const store = tx.objectStore('profile');
-                        store.put(data, 'currentData');
-                        tx.oncomplete = () => resolve(true);
-                        tx.onerror = () => resolve(false);
-                    };
-                    req.onerror = () => resolve(false);
-                } catch (e) {
-                    resolve(false);
-                }
-            });
-        }
-
-        function loadFromIndexedDB() {
-            return new Promise((resolve) => {
-                try {
-                    const req = indexedDB.open('SnoopyDB', 1);
-                    req.onupgradeneeded = (e) => {
-                        const db = e.target.result;
-                        if (!db.objectStoreNames.contains('profile')) {
-                            db.createObjectStore('profile');
-                        }
-                    };
-                    req.onsuccess = (e) => {
-                        const db = e.target.result;
-                        const tx = db.transaction('profile', 'readonly');
-                        const store = tx.objectStore('profile');
-                        const getReq = store.get('currentData');
-                        getReq.onsuccess = () => resolve(getReq.result || null);
-                        getReq.onerror = () => resolve(null);
-                    };
-                    req.onerror = () => resolve(null);
-                } catch (e) {
-                    resolve(null);
-                }
-            });
-        }
-
-        // Multi-tier Storage Reader
-        async function loadLocalStoredData() {
-            let loadedData = null;
-
-            // 1. Memory Store
-            if (window.__snoopyMemoryStore) {
-                loadedData = window.__snoopyMemoryStore;
-            }
-
-            // 2. window.name (Sangat ampuh menahan data saat iframe di-refresh F5)
-            if (!loadedData) {
-                try {
-                    if (window.name && window.name.includes('SNOOPY_DATA_STORE:')) {
-                        const jsonStr = window.name.split('SNOOPY_DATA_STORE:')[1];
-                        if (jsonStr) {
-                            loadedData = JSON.parse(jsonStr);
-                        }
-                    }
-                } catch (e) { }
-            }
-
-            // 3. localStorage & sessionStorage
-            if (!loadedData) {
-                try {
-                    const saved = localStorage.getItem('snoopyProfileData') || sessionStorage.getItem('snoopyProfileData');
-                    if (saved) {
-                        loadedData = JSON.parse(saved);
-                    }
-                } catch (e) { }
-            }
-
-            // 4. IndexedDB Client Database
-            if (!loadedData) {
-                try {
-                    const idbData = await loadFromIndexedDB();
-                    if (idbData) {
-                        loadedData = idbData;
-                    }
-                } catch (e) { }
-            }
-
-            if (loadedData && typeof loadedData === 'object') {
-                currentData = { ...currentData, ...loadedData };
-                window.__snoopyMemoryStore = currentData;
-            }
-        }
-
-        // Multi-tier Resilient Storage Writer
+        // Firestore Storage Writer
         async function saveDataToStorageAndCloud() {
             currentData.lastSaved = Date.now();
-            window.__snoopyMemoryStore = currentData;
-
-            const str = JSON.stringify(currentData);
-
-            // Simpan ke window.name (Anti Hilang saat Refresh Iframe)
-            try {
-                window.name = 'SNOOPY_DATA_STORE:' + str;
-            } catch (e) { }
-
-            // Simpan ke LocalStorage & SessionStorage
-            try { localStorage.setItem('snoopyProfileData', str); } catch (e) { }
-            try { sessionStorage.setItem('snoopyProfileData', str); } catch (e) { }
-
-            // Simpan ke IndexedDB
-            try { await saveToIndexedDB(currentData); } catch (e) { }
-
-            // Simpan ke Cloud Firestore
+            
+            // Simpan langsung ke Cloud Firestore
             if (docRef) {
                 try {
                     await setDoc(docRef, currentData);
-                } catch (err) {
-                    console.warn("Firebase setDoc background sync:", err);
+                    console.log("Data berhasil disimpan ke Firestore.");
+                } catch(err) {
+                    console.error("Gagal menyimpan ke Firestore:", err);
+                    alert("Gagal menyimpan data ke Firestore: " + (err.message || err));
                 }
+            } else {
+                console.warn("Koneksi Firestore belum terinisialisasi.");
             }
         }
 
@@ -1771,7 +1661,7 @@
         }
 
         async function initAuth() {
-            await loadLocalStoredData();
+            // Render tampilan awal
             updatePublicUI();
 
             if (firebaseConfig) {
@@ -1779,39 +1669,55 @@
                     const app = initializeApp(firebaseConfig);
                     auth = getAuth(app);
                     db = getFirestore(app);
-                    docRef = doc(db, "snoopyProfiles", appId);
+                    docRef = doc(db, "portfolio", "profileData");
 
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
+                    try {
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch(authErr) {
+                        console.warn("Firebase Auth Notice:", authErr);
                     }
 
+                    // Ambil data pertama kali dari Firestore
+                    try {
+                        const docSnap = await getDoc(docRef);
+                        if (docSnap.exists()) {
+                            const cloudData = docSnap.data();
+                            if (cloudData && typeof cloudData === 'object') {
+                                currentData = { ...currentData, ...cloudData };
+                                updatePublicUI();
+                                if (adminDashboard && !adminDashboard.classList.contains('hidden')) {
+                                    updateAdminUI();
+                                }
+                            }
+                        } else {
+                            // Inisialisasi data default ke Firestore jika dokumen belum ada
+                            await setDoc(docRef, currentData);
+                        }
+                    } catch (fetchErr) {
+                        console.warn("Firestore getDoc error:", fetchErr);
+                    }
+
+                    // Listener realtime Firestore agar setiap perubahan langsung sinkron
                     onSnapshot(docRef, (snapshot) => {
                         if (snapshot.exists()) {
                             const cloudData = snapshot.data();
                             if (cloudData && typeof cloudData === 'object') {
-                                const localSavedTime = currentData.lastSaved || 0;
-                                const cloudSavedTime = cloudData.lastSaved || 0;
-
-                                // Hanya timpa jika data di cloud BENAR-BENAR LEBIH BARU
-                                if (cloudSavedTime > localSavedTime) {
-                                    currentData = { ...currentData, ...cloudData };
-                                    window.__snoopyMemoryStore = currentData;
-                                    const str = JSON.stringify(currentData);
-                                    try { window.name = 'SNOOPY_DATA_STORE:' + str; } catch (e) { }
-                                    try { localStorage.setItem('snoopyProfileData', str); } catch (e) { }
-                                    try { sessionStorage.setItem('snoopyProfileData', str); } catch (e) { }
-                                    saveToIndexedDB(currentData);
-                                    updatePublicUI();
+                                currentData = { ...currentData, ...cloudData };
+                                updatePublicUI();
+                                if (adminDashboard && !adminDashboard.classList.contains('hidden')) {
+                                    updateAdminUI();
                                 }
                             }
                         }
                     }, (err) => {
-                        console.warn("Firestore snapshot error:", err);
+                        console.warn("Firestore onSnapshot error:", err);
                     });
                 } catch (e) {
-                    console.warn("Firebase initialization error:", e);
+                    console.error("Firebase initialization error:", e);
                 }
             }
         }
